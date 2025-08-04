@@ -1,0 +1,17 @@
+# Fișiere sensibile
+*token*
+*secret*
+*key*
+.env
+*.pem
+*.p12
+*.pfx
+
+# Fișiere Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Fișiere sistem
+.DS_Store
+Thumbs.db
