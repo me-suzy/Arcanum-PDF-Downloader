@@ -1,0 +1,135 @@
+
+
+## 🔧 **PAȘII pentru Task Scheduler:**
+
+### **1. Deschide Command Prompt ca Administrator:**
+- Apasă `Win + R`
+- Scrie `cmd` 
+- Apasă `Ctrl + Shift + Enter` (pentru Administrator)
+- SAU: Click dreapta pe Start → "Windows Terminal (Admin)" sau "Command Prompt (Admin)"
+
+### **2. Copiază și lipește comanda:**
+```batch
+schtasks /create /tn "ArcanumDownloader" /tr "\"e:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat in concediu\daily_arcanum_start.bat\"" /sc daily /st 09:00 /ru "%username%" /rl highest /f
+```
+
+### **3. Apasă Enter**
+
+**Ar trebui să vezi:**
+```
+SUCCESS: The scheduled task "ArcanumDownloader" has successfully been created.
+```
+
+### **4. Verifică că s-a creat:**
+```batch
+schtasks /query /tn "ArcanumDownloader"
+```
+
+---
+
+## 🎯 **ALTERNATIV - Creează un fișier .bat pentru asta:**
+
+Poți crea un fișier `setup_task_scheduler.bat` în folderul tău cu:
+
+```batch
+@echo off
+echo Configurez Task Scheduler pentru ArcanumDownloader...
+
+REM Verifică dacă rulezi ca Administrator
+net session >nul 2>&1
+if %errorLevel% neq 0 (
+    echo EROARE: Trebuie sa rulezi ca Administrator!
+    echo Click dreapta pe acest script si alege "Run as administrator"
+    pause
+    exit /b 1
+)
+
+REM Creează task-ul
+schtasks /create /tn "ArcanumDownloader" /tr "\"e:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat in concediu\daily_arcanum_start.bat\"" /sc daily /st 09:00 /ru "%username%" /rl highest /f
+
+if %errorlevel% == 0 (
+    echo ✅ Task-ul a fost creat cu succes!
+    echo Va rula zilnic la 09:00
+) else (
+    echo ❌ Eroare la crearea task-ului!
+)
+
+pause
+```
+
+**Apoi click dreapta pe el → "Run as administrator"**
+
+**Care variantă preferi?** 🚀
+
+
+
+
+
+**NU!** Nu pornești ambele - `daily_arcanum_start.bat` **deja pornește automat** scriptul Python!
+
+Iată pașii **corecți** în ordine:
+
+## 🔧 **PAȘII DE URMAT ACUM:**
+
+### **1. Instalează dependența nouă**
+```bash
+pip install psutil
+```
+
+### **2. Salvează fișierele în locurile corecte**
+- `FINAL_AUTO_with_disk_monitoring.py` → în folderul tău cu Chrome
+- `daily_arcanum_start.bat` → în același folder
+- `monitor_progress.py` → în același folder
+
+### **3. TEST MANUAL (înainte de automatizare)**
+```bash
+# Navighează în folder
+cd "e:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome"
+
+# Testează DOAR daily_arcanum_start.bat (care pornește totul automat)
+daily_arcanum_start.bat
+```
+
+**⚠️ IMPORTANT:** `daily_arcanum_start.bat` face tot procesul:
+- Pornește Chrome cu debugging
+- Așteptă 10 secunde
+- Pornește automat scriptul Python
+- Face logging
+
+### **4. Dacă testul manual merge bine → Configurează Task Scheduler**
+
+**Opțiunea A - Rulează ca Administrator:**
+```batch
+schtasks /create /tn "ArcanumDownloader" /tr "\"e:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\daily_arcanum_start.bat\"" /sc daily /st 09:00 /ru "%username%" /rl highest /f
+```
+
+**Opțiunea B - Prin interfață:**
+1. Deschide Task Scheduler (`taskschd.msc`)
+2. Create Task → Name: "ArcanumDownloader"
+3. Run with highest privileges ✓
+4. Trigger: Daily at 9:00 AM
+5. Action: Start program → Browse la `daily_arcanum_start.bat`
+
+### **5. Verifică că task-ul e configurat**
+```batch
+schtasks /query /tn "ArcanumDownloader"
+```
+
+### **6. Test final - rulează task-ul manual**
+```batch
+schtasks /run /tn "ArcanumDownloader"
+```
+
+---
+
+## ✅ **CHECKLIST FINAL:**
+- [ ] `pip install psutil` - rulat cu succes
+- [ ] Fișierele salvate în folderul corect
+- [ ] Test manual `daily_arcanum_start.bat` - funcționează
+- [ ] Task Scheduler configurat pentru 09:00 zilnic
+- [ ] Test task manual - funcționează
+- [ ] Verificat că Chrome se conectează cu debugging
+
+**🎯 Dacă toate astea merg → GATA! Sistemul va rula automat zilnic la 09:00 și va reia de unde a rămas!**
+
+**Care dintre acești pași vrei să îi facem acum?** 🚀

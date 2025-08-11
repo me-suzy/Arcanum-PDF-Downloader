@@ -1,0 +1,45 @@
+Pentru a verifica că task-ul este activ, urmează acești pași simpli:
+
+DESCHIDE CMD SI ruleaza: 
+schtasks /query /tn "Arcanum_PDF_Downloader_Daily_Enhanced"
+
+## Metoda 1: Prin Command Prompt  
+
+1. **Apasă** `Win + R` (tasta Windows + R)
+2. **Scrie** `cmd` și apasă Enter  
+3. **Copiază și lipește** această comandă:
+   ```cmd
+   schtasks /query /tn "Arcanum_PDF_Downloader_Daily_Enhanced"
+   ```
+4. **Apasă** Enter
+
+## Metoda 2: Prin Start Menu
+
+1. **Click** pe Start (sau apasă tasta Windows)
+2. **Scrie** `cmd`
+3. **Click** pe "Command Prompt"
+4. **Scrie** comanda de mai sus și apasă Enter
+
+## Ce vei vedea dacă task-ul este activ:
+
+```
+Folder: \
+TaskName                                 Next Run Time          Status
+======================================== ====================== ===============
+Arcanum_PDF_Downloader_Daily_Enhanced    8/12/2025 9:00:00 AM   Ready
+```
+
+## Metoda 3: Prin Task Scheduler (vizual)
+
+1. **Apasă** `Win + R`
+2. **Scrie** `taskschd.msc` și apasă Enter
+3. **Caută** în lista de task-uri: `Arcanum_PDF_Downloader_Daily_Enhanced`
+4. **Verifică** că Status este "Ready" și Next Run Time este setat
+
+## Ce înseamnă statusurile:
+
+- **Ready** = Task-ul e gata să ruleze la ora programată ✅
+- **Running** = Task-ul rulează chiar acum 🔄  
+- **Disabled** = Task-ul e oprit ❌
+
+**Dacă vezi "Ready" și "Next Run Time: 8/12/2025 9:00:00 AM", înseamnă că totul e perfect configurat!** 🎉

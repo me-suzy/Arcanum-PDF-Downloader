@@ -1,0 +1,95 @@
+Excelentă întrebare! Iată cum poți gestiona task-ul în viitor:
+
+## 🕘 **Pentru a schimba ora:**
+
+### Metoda 1: Command Prompt (rapid)
+```cmd
+schtasks /change /tn "Arcanum_PDF_Downloader_Daily_Enhanced" /st 08:00
+```
+*(schimbă la 8:00 AM - poți pune orice oră vrei)*
+
+### Metoda 2: Task Scheduler (vizual)
+1. `Win + R` → `taskschd.msc`
+2. Găsește `Arcanum_PDF_Downloader_Daily_Enhanced`
+3. **Click dreapta** → **Properties**
+4. Tab **Triggers** → **Edit**
+5. Schimbă ora și **OK**
+
+## ⏸️ **Pentru a pune pe PAUZĂ (dezactivare temporară):**
+
+### Command Prompt:
+```cmd
+schtasks /change /tn "Arcanum_PDF_Downloader_Daily_Enhanced" /disable
+```
+
+### Task Scheduler:
+1. `taskschd.msc`
+2. **Click dreapta** pe task → **Disable**
+
+## ▶️ **Pentru a REACTIVA după pauză:**
+
+### Command Prompt:
+```cmd
+schtasks /change /tn "Arcanum_PDF_Downloader_Daily_Enhanced" /enable
+```
+
+### Task Scheduler:
+1. **Click dreapta** pe task → **Enable**
+
+## 🗑️ **Pentru a OPRI definitiv (șterge task-ul):**
+
+### Command Prompt:
+```cmd
+schtasks /delete /tn "Arcanum_PDF_Downloader_Daily_Enhanced" /f
+```
+
+### Task Scheduler:
+1. **Click dreapta** pe task → **Delete**
+
+## 🚀 **Pentru a rula IMEDIAT (test):**
+
+### Command Prompt:
+```cmd
+schtasks /run /tn "Arcanum_PDF_Downloader_Daily_Enhanced"
+```
+
+### Task Scheduler:
+1. **Click dreapta** pe task → **Run**
+
+## 📊 **Pentru a verifica status-ul:**
+
+```cmd
+schtasks /query /tn "Arcanum_PDF_Downloader_Daily_Enhanced" /fo list
+```
+*(afișează detalii complete)*
+
+## 🔄 **Pentru a reconfigura complet:**
+
+Rulează din nou:
+```cmd
+"E:\...\SIMPLE_UPDATE_TASK.bat"
+```
+*(cu click dreapta → Run as administrator)*
+
+## 📝 **Exemple practice:**
+
+**Schimbare la 7:30 AM:**
+```cmd
+schtasks /change /tn "Arcanum_PDF_Downloader_Daily_Enhanced" /st 07:30
+```
+
+**Pauză pentru weekend:**
+```cmd
+schtasks /change /tn "Arcanum_PDF_Downloader_Daily_Enhanced" /disable
+```
+
+**Reactivare după weekend:**
+```cmd
+schtasks /change /tn "Arcanum_PDF_Downloader_Daily_Enhanced" /enable
+```
+
+## 💡 **Tip practic:**
+
+**Salvează** aceste comenzi într-un fișier `.txt` pe desktop pentru referință rapidă în viitor!
+
+**Ai control complet asupra task-ului oricând vrei!** 🎯

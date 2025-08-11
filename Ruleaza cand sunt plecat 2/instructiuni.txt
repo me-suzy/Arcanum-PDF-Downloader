@@ -1,0 +1,76 @@
+Deschizi CMD in acelasi folder si pornesti tastele:
+
+python "Scheduled PDF Downloader (sterge de pe D toate pdf) BUN.py" --now
+
+DE TESTARE
+
+# Verificare configurație (RECOMAND să începi cu asta!)
+python "Scheduled PDF Downloader.py" --test
+
+# Testare imediată (pentru a vedea dacă funcționează)
+python "Scheduled PDF Downloader.py" --now
+
+# Rulare normală cu scheduler (pornește automat la 9:00 zilnic)
+python "Scheduled PDF Downloader.py"
+
+-------------------
+🚨 **Exact! CMD-ul s-a închis, deci scheduler-ul NU rulează!** 
+
+Pentru ca să pornească **AUTOMAT mâine la 09:00**, trebuie să faci una din următoarele:
+
+---
+
+## 🔄 **OPȚIUNEA 1: Pornește scheduler-ul ACUM (Recomandată)**
+
+Deschide CMD din nou și rulează:
+
+```cmd
+cd "e:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat 2"
+
+python "Scheduled PDF Downloader.py"
+```
+
+**Aceasta va:**
+- ✅ Rula continuu în background 
+- ✅ Aștepta până mâine la 09:00
+- ✅ Porni automat descărcarea mâine
+- ✅ Loga totul în `D:\download_log.txt`
+
+**IMPORTANT**: **NU închide CMD-ul!** Lasă-l să ruleze continuu.
+
+---
+
+## 🕘 **OPȚIUNEA 2: Task Scheduler din Windows (Avansată)**
+
+Dacă vrei să fie 100% automat și să nu lași CMD-ul deschis:
+
+1. **Apasă Win + R**, scrie `taskschd.msc`, Enter
+2. **Create Task** → **General Tab**:
+   - Name: `Arcanum PDF Downloader`  
+   - ✅ Run whether user is logged on or not
+3. **Triggers Tab** → **New**:
+   - Daily la 09:00
+4. **Actions Tab** → **New**:
+   - Program: `python`
+   - Arguments: `"Scheduled PDF Downloader.py" --now`
+   - Start in: `e:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat 2`
+
+---
+
+## 💡 **RECOMANDAREA MEA:**
+
+**Folosește OPȚIUNEA 1** - e mai simplă:
+
+```cmd
+python "Scheduled PDF Downloader.py"
+```
+
+Și vezi în CMD ceva de genul:
+```
+📅 SCHEDULER PORNIT - Descărcare programată zilnic la 09:00
+⏸️  Pentru oprire: Ctrl+C
+```
+
+**Lasă CMD-ul deschis** și mâine la 09:00 va porni automat! 🎯
+
+Ce opțiune preferi?

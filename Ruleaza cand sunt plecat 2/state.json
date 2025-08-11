@@ -1,0 +1,325 @@
+{
+  "date": "2025-08-08",
+  "count": 26,
+  "downloaded_issues": [
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1957",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1957 (Anul 8, nr. 1-4)",
+      "subtitle": "1957-01-01 / nr. 1",
+      "pages": 0,
+      "completed_at": "",
+      "last_successful_segment_end": 799,
+      "total_pages": 1407
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1956",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1956 (Anul 7, nr. 1-4)",
+      "subtitle": "1956-01-01 / nr. 1",
+      "pages": 1150,
+      "completed_at": "2025-08-07T12:30:09",
+      "last_successful_segment_end": 1150,
+      "total_pages": 1150
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1955",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1955 (Anul 6, nr. 1-4)",
+      "subtitle": "1955-01-01 / nr. 1-2",
+      "pages": 658,
+      "completed_at": "2025-08-07T12:24:27",
+      "last_successful_segment_end": 658,
+      "total_pages": 658
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1954",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1954 (Anul 5, nr. 3-4)",
+      "subtitle": "1954-07-01 / nr. 3-4",
+      "pages": 369,
+      "completed_at": "2025-08-07T12:21:08",
+      "last_successful_segment_end": 369,
+      "total_pages": 369
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convieturiea_2023",
+      "title": "Conviețuirea - Együttélés, 2023",
+      "subtitle": "",
+      "pages": 88,
+      "completed_at": "2025-08-07T12:08:29",
+      "last_successful_segment_end": 88,
+      "total_pages": 88
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2018",
+      "title": "Convieţuirea, 2018 (Seria a doua - Anul 5, nr. 1)",
+      "subtitle": "",
+      "pages": 218,
+      "completed_at": "2025-08-07T12:07:56",
+      "last_successful_segment_end": 218,
+      "total_pages": 218
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2017",
+      "title": "Convieţuirea, 2017 (Seria a doua - Anul 4, nr. 1)",
+      "subtitle": "",
+      "pages": 76,
+      "completed_at": "2025-08-07T12:06:48",
+      "last_successful_segment_end": 76,
+      "total_pages": 76
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2016",
+      "title": "Convieţuirea, 2016 (Seria a doua - Anul 3, nr. 1)",
+      "subtitle": "",
+      "pages": 118,
+      "completed_at": "2025-08-07T12:06:17",
+      "last_successful_segment_end": 118,
+      "total_pages": 118
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2008",
+      "title": "Convieţuirea, 2008 (Anul 12, nr. 1-4)",
+      "subtitle": "",
+      "pages": 100,
+      "completed_at": "2025-08-07T12:05:34",
+      "last_successful_segment_end": 100,
+      "total_pages": 100
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2007",
+      "title": "Convieţuirea, 2007 (Anul 11, nr. 1-4)",
+      "subtitle": "",
+      "pages": 100,
+      "completed_at": "2025-08-07T12:04:49",
+      "last_successful_segment_end": 100,
+      "total_pages": 100
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2006",
+      "title": "Convieţuirea, 2006 (Anul 10, nr. 1-4)",
+      "subtitle": "",
+      "pages": 180,
+      "completed_at": "2025-08-07T12:04:02",
+      "last_successful_segment_end": 180,
+      "total_pages": 180
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2005",
+      "title": "Convieţuirea, 2005 (Anul 9, nr. 1-4)",
+      "subtitle": "",
+      "pages": 260,
+      "completed_at": "2025-08-07T12:03:01",
+      "last_successful_segment_end": 260,
+      "total_pages": 260
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2003-2004",
+      "title": "Convieţuirea, 2003-2004 (Anul 7, nr. 3-4 - Anul 8, nr. 1-4)",
+      "subtitle": "",
+      "pages": 212,
+      "completed_at": "2025-08-07T11:13:45",
+      "last_successful_segment_end": 212,
+      "total_pages": 212
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2002-2003",
+      "title": "Convieţuirea, 2002-2003 (Anul 6, nr. 3-4 - Anul 7, nr. 1-2)",
+      "subtitle": "",
+      "pages": 196,
+      "completed_at": "2025-08-07T10:58:54",
+      "last_successful_segment_end": 196,
+      "total_pages": 196
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2002",
+      "title": "Convieţuirea, 2002 (Anul 6, nr. 1-2)",
+      "subtitle": "",
+      "pages": 190,
+      "completed_at": "2025-08-07T10:10:35",
+      "last_successful_segment_end": 190,
+      "total_pages": 190
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2001",
+      "title": "Convieţuirea, 2001 (Anul 5, nr. 1-4)",
+      "subtitle": "",
+      "pages": 178,
+      "completed_at": "2025-08-07T10:09:14",
+      "last_successful_segment_end": 178,
+      "total_pages": 178
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2000",
+      "title": "Convieţuirea, 2000 (Anul 4, nr. 2-4)",
+      "subtitle": "",
+      "pages": 150,
+      "completed_at": "2025-08-07T10:08:15",
+      "last_successful_segment_end": 150,
+      "total_pages": 150
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_1999-2000",
+      "title": "Convieţuirea, 1999-2000 (Anul 3, nr. 4 - Anul 4, nr. 1)",
+      "subtitle": "",
+      "pages": 166,
+      "completed_at": "2025-08-07T10:00:00",
+      "last_successful_segment_end": 166,
+      "total_pages": 166
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_1998-1999",
+      "title": "Convieţuirea, 1998-1999 (Anul 2, nr. 4 - Anul 3, nr. 1)",
+      "subtitle": "",
+      "pages": 156,
+      "completed_at": "2025-08-07T08:37:29",
+      "last_successful_segment_end": 156,
+      "total_pages": 156
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_1998",
+      "title": "Convieţuirea, 1998 (Anul 2, nr. 2-3)",
+      "subtitle": "",
+      "pages": 172,
+      "completed_at": "2025-08-06T10:21:43",
+      "last_successful_segment_end": 172,
+      "total_pages": 172
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/GazetaMatematicaSiFizicaSeriaB_1967",
+      "title": "Gazeta matematică și fizică: Seria B, 1967 (Anul 18, nr. 1-12)",
+      "subtitle": "1967-01-01 / nr. 1",
+      "pages": 624,
+      "completed_at": "2025-08-06T10:20:01",
+      "last_successful_segment_end": 624,
+      "total_pages": 624
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/GazetaMatematicaSiFizicaSeriaB_1966",
+      "title": "Gazeta matematică și fizică: Seria B, 1966 (Anul 17, nr. 1-12)",
+      "subtitle": "1966-01-01 / nr. 1",
+      "pages": 624,
+      "completed_at": "2025-08-06T10:16:17",
+      "last_successful_segment_end": 624,
+      "total_pages": 624
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/GazetaMatematicaSiFizicaSeriaB_1965",
+      "title": "Gazeta matematică și fizică: Seria B, 1965 (Anul 16, nr. 1-12)",
+      "subtitle": "1965-01-01 / nr. 1",
+      "pages": 644,
+      "completed_at": "2025-08-06T10:12:31",
+      "last_successful_segment_end": 644,
+      "total_pages": 644
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/GazetaMatematicaSiFizicaSeriaB_1964",
+      "title": "Gazeta matematică și fizică: Seria B, 1964 (Anul 15, nr. 1-12)",
+      "subtitle": "1964-01-01 / nr. 1",
+      "pages": 624,
+      "completed_at": "2025-08-06T10:08:50",
+      "last_successful_segment_end": 624,
+      "total_pages": 624
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/GazetaMatematicaSiFizicaSeriaB_1963",
+      "title": "Gazeta matematică și fizică: Seria B, 1963 (Anul 14, nr. 1-11)",
+      "subtitle": "1963-01-01 / nr. 1",
+      "pages": 748,
+      "completed_at": "2025-08-06T10:05:07",
+      "last_successful_segment_end": 748,
+      "total_pages": 748
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/GazetaMatematicaSiFizicaSeriaB_1962",
+      "title": "Gazeta matematică și fizică: Seria B, 1962 (Anul 13, nr. 7-12)",
+      "subtitle": "1962-07-01 / nr. 7",
+      "pages": 408,
+      "completed_at": "2025-08-06T10:01:14",
+      "last_successful_segment_end": 408,
+      "total_pages": 408
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/GazetaMatematicaSiFizicaSeriaB_1961",
+      "title": "Gazeta matematică și fizică: Seria B, 1961 (Anul 12, nr. 1-12)",
+      "subtitle": "1961-01-01 / nr. 1",
+      "pages": 816,
+      "completed_at": "2025-08-06T09:58:18",
+      "last_successful_segment_end": 816,
+      "total_pages": 816
+    }
+  ],
+  "pages_downloaded": 4409,
+  "recent_links": [
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1956",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1956 (Anul 7, nr. 1-4)",
+      "subtitle": "1956-01-01 / nr. 1",
+      "pages": 1150,
+      "timestamp": "2025-08-07T12:30:09"
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1955",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1955 (Anul 6, nr. 1-4)",
+      "subtitle": "1955-01-01 / nr. 1-2",
+      "pages": 658,
+      "timestamp": "2025-08-07T12:24:27"
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1954",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1954 (Anul 5, nr. 3-4)",
+      "subtitle": "1954-07-01 / nr. 3-4",
+      "pages": 369,
+      "timestamp": "2025-08-07T12:21:08"
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convieturiea_2023",
+      "title": "Conviețuirea - Együttélés, 2023",
+      "subtitle": "",
+      "pages": 88,
+      "timestamp": "2025-08-07T12:08:29"
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2018",
+      "title": "Convieţuirea, 2018 (Seria a doua - Anul 5, nr. 1)",
+      "subtitle": "",
+      "pages": 218,
+      "timestamp": "2025-08-07T12:07:56"
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2017",
+      "title": "Convieţuirea, 2017 (Seria a doua - Anul 4, nr. 1)",
+      "subtitle": "",
+      "pages": 76,
+      "timestamp": "2025-08-07T12:06:48"
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2016",
+      "title": "Convieţuirea, 2016 (Seria a doua - Anul 3, nr. 1)",
+      "subtitle": "",
+      "pages": 118,
+      "timestamp": "2025-08-07T12:06:17"
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2008",
+      "title": "Convieţuirea, 2008 (Anul 12, nr. 1-4)",
+      "subtitle": "",
+      "pages": 100,
+      "timestamp": "2025-08-07T12:05:34"
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2007",
+      "title": "Convieţuirea, 2007 (Anul 11, nr. 1-4)",
+      "subtitle": "",
+      "pages": 100,
+      "timestamp": "2025-08-07T12:04:49"
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Convietuirea_2006",
+      "title": "Convieţuirea, 2006 (Anul 10, nr. 1-4)",
+      "subtitle": "",
+      "pages": 180,
+      "timestamp": "2025-08-07T12:04:02"
+    }
+  ],
+  "daily_limit_hit": false,
+  "main_collection_completed": true,
+  "current_additional_collection_index": 1
+}
