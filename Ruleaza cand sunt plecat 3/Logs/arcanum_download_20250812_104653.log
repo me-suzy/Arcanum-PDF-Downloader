@@ -1,0 +1,4 @@
+2025-08-12 10:50:27 - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)': /session/11bf3b2d5f9a172b58abf359ecddbfd3/window/handles
+2025-08-12 10:59:30 - goodbye ('127.0.0.1', 56992)
+2025-08-12 10:59:30 - listener closed
+2025-08-12 10:59:30 - server has terminated

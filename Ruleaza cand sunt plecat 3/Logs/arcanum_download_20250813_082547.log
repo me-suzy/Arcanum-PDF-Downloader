@@ -1,0 +1,6 @@
+2025-08-13 08:34:02 - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)': /session/8b1010fa582583df87c0108a9b580e05/window/handles
+2025-08-13 08:34:06 - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000021D7D8197C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/8b1010fa582583df87c0108a9b580e05/window/handles
+2025-08-13 08:34:11 - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000021D003CEE40>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/8b1010fa582583df87c0108a9b580e05/window/handles
+2025-08-13 09:15:23 - goodbye ('127.0.0.1', 54003)
+2025-08-13 09:15:23 - listener closed
+2025-08-13 09:15:23 - server has terminated

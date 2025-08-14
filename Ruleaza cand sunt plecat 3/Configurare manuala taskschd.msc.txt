@@ -1,0 +1,81 @@
+Configurar veche  TASK SCHEDULER:
+
+deschizi: taskschd.msc
+
+Configurare initiala. Mergi in tabul Actions:
+
+-------Daca vrei sa porneasca cu CMD----
+
+Program script:  cmd.exe
+
+Add arguments:  
+
+/c "E:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat 3\run_python_direct.bat"
+
+------Sau daca vrei sa porneasca cu PyScripter:=--------
+
+Program/script:
+
+"C:\Program Files (x86)\PyScripter\PyScripter.exe"
+
+Add arguments (optional):
+"E:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat 3\Claude-FINAL 2 - BUN Sterge pdf pe D.py"
+
+Sau pornesti: run_script.bat-(porneste-pyscripter).bat" 
+
+@echo off
+cd /d "E:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat 3"
+"C:\Program Files\PyScripter\PyScripter.exe" --python312 "Claude-FINAL 2 - BUN Sterge pdf pe D.py"
+
+
+
+
+TESTEAZA ca sa vezi cu ce program incepe sa ruleze, cmd sau pytscripter: CMD:
+
+Deschide CMD in task Scheduller:
+
+@echo off
+cd /d "E:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat 3"
+"C:\Users\necul\AppData\Local\Programs\Python\Python312\python.exe" "Claude-FINAL 2 - BUN Sterge pdf pe D.py"
+
+Deschide PyScripter:
+
+@echo off
+cd /d "E:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat 3"
+start "" "C:\Program Files\PyScripter\PyScripter.exe" --python312 "Claude-FINAL 2 - BUN Sterge pdf pe D.py"
+timeout /t 5 /nobreak >nul
+powershell -Command "Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.SendKeys]::SendWait('^{F9}')"
+ 
+ 
+
+Configurare noua
+
+**Ah, înțeleg!** Vrei să se deschidă **PyScripter cu scriptul deschis**, nu doar python.exe în cmd. Perfect!
+
+## Configurare Task Scheduler pentru PyScripter:
+
+### PASUL 1: Program/script
+```
+"C:\Program Files (x86)\PyScripter\PyScripter.exe"
+```
+
+### PASUL 2: Add arguments (optional)
+```
+--python312 "E:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat 3\Claude-FINAL 2 - BUN Sterge pdf pe D.py"
+```
+
+**Explicație argumentelor:**
+- `--python312` = folosește Python 3.12 (calea ta)
+- Apoi calea către script între ghilimele
+
+### PASUL 3: Start in (optional)
+```
+E:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat 3
+```
+
+## Testează în cmd primul:
+```cmd
+"C:\Program Files (x86)\PyScripter\PyScripter.exe" --python312 "E:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat 3\Claude-FINAL 2 - BUN Sterge pdf pe D.py"
+```
+
+Dacă merge în cmd, va merge și în Task Scheduler și **se va deschide PyScripter** cu scriptul încărcat! 🎯
