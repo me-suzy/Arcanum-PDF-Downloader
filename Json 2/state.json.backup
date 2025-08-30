@@ -1,7 +1,97 @@
 {
-  "date": "2025-08-26",
-  "count": 105,
+  "date": "2025-08-28",
+  "count": 126,
   "downloaded_issues": [
+    {
+      "url": "https://adt.arcanum.com/hu/view/AMatematikaTanitasa_1977",
+      "title": "A Matematika Tanítása, 1977 (24. évfolyam, 1-4. szám)",
+      "subtitle": "",
+      "pages": 146,
+      "completed_at": "2025-08-28T08:25:43",
+      "last_successful_segment_end": 146,
+      "total_pages": 146
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1969",
+      "title": "Studii şi Cercetări de Matematică, 1969 (Anul 21, nr. 1-10)",
+      "subtitle": "1969 / nr. 1",
+      "pages": 1654,
+      "completed_at": "2025-08-28T07:36:31",
+      "last_successful_segment_end": 1654,
+      "total_pages": 1654
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1968",
+      "title": "Studii şi Cercetări de Matematică, 1968 (Anul 20, nr. 1-10)",
+      "subtitle": "1968 / nr. 1",
+      "pages": 1652,
+      "completed_at": "2025-08-28T07:20:08",
+      "last_successful_segment_end": 1652,
+      "total_pages": 1652
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1967",
+      "title": "Studii şi Cercetări de Matematică, 1967 (Anul 19, nr. 1-10)",
+      "subtitle": "1967 / nr. 1",
+      "pages": 1596,
+      "completed_at": "2025-08-27T09:57:07",
+      "last_successful_segment_end": 1596,
+      "total_pages": 1596
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1966",
+      "title": "Studii şi Cercetări de Matematică, 1966 (Anul 18, nr. 1-10)",
+      "subtitle": "1966 / nr. 1",
+      "pages": 1656,
+      "completed_at": "2025-08-27T09:47:16",
+      "last_successful_segment_end": 1656,
+      "total_pages": 1656
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1963",
+      "title": "Studii şi Cercetări de Matematică, 1963 (Anul 14, nr. 1-4)",
+      "subtitle": "1963 / nr. 1",
+      "pages": 718,
+      "completed_at": "2025-08-27T09:38:06",
+      "last_successful_segment_end": 718,
+      "total_pages": 718
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1965",
+      "title": "Studii şi Cercetări de Matematică, 1965 (Anul 17, nr. 1-10)",
+      "subtitle": "1965 / nr. 1",
+      "pages": 1662,
+      "completed_at": "2025-08-27T09:34:29",
+      "last_successful_segment_end": 1662,
+      "total_pages": 1662
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1964",
+      "title": "Studii şi Cercetări de Matematică, 1964 (Anul 15-16, nr. 1-10)",
+      "subtitle": "1964 / nr. 1",
+      "pages": 1354,
+      "completed_at": "2025-08-26T11:37:23",
+      "last_successful_segment_end": 1354,
+      "total_pages": 1354
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1962",
+      "title": "Studii şi Cercetări de Matematică, 1962 (Anul 13, nr. 1-4)",
+      "subtitle": "1962 / nr. 1",
+      "pages": 684,
+      "completed_at": "2025-08-26T11:24:12",
+      "last_successful_segment_end": 684,
+      "total_pages": 684
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1961",
+      "title": "Studii şi Cercetări de Matematică, 1961 (Anul 12, nr. 1-2)1961 / nr. 1",
+      "subtitle": "1968 / nr. 1",
+      "pages": 602,
+      "completed_at": "2025-08-26T11:19:16",
+      "last_successful_segment_end": 602,
+      "total_pages": 602
+    },
     {
       "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1936-1937",
       "title": "RevistaMatematicaDinTimisoara 1936 1937",
@@ -955,91 +1045,11 @@
       "completed_at": "2025-08-09T10:56:45",
       "last_successful_segment_end": 1666,
       "total_pages": 1666
-    },
-    {
-      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1961",
-      "title": "Studii şi Cercetări de Matematică, 1961 (Anul 12, nr. 1-2)1961 / nr. 1",
-      "subtitle": "1968 / nr. 1",
-      "pages": 0,
-      "completed_at": "",
-      "last_successful_segment_end": 0,
-      "total_pages": 602
     }
   ],
-  "pages_downloaded": 60080,
-  "recent_links": [
-    {
-      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1948-1949",
-      "title": "Revista Matematicǎ din Timișoara, 1948-1949 (Anul 28, nr. 1-12)",
-      "subtitle": "1948-03-01 / nr. 1",
-      "pages": 252,
-      "timestamp": "2025-08-25T12:25:10"
-    },
-    {
-      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1947-1948",
-      "title": "Revista Matematicǎ din Timișoara, 1947-1948 (Anul 27, nr. 2-12)",
-      "subtitle": "1947-04-01 / nr. 2",
-      "pages": 196,
-      "timestamp": "2025-08-25T12:22:25"
-    },
-    {
-      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1946-1947",
-      "title": "Revista Matematicǎ din Timișoara, 1946-1947 (Anul 26, nr. 1-10)",
-      "subtitle": "1946-03-01 / nr. 1",
-      "pages": 160,
-      "timestamp": "2025-08-25T12:20:08"
-    },
-    {
-      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1945-1946",
-      "title": "Revista Matematicǎ din Timișoara, 1945-1946 (Anul 25, nr. 1-12)",
-      "subtitle": "1945-03-01 / nr. 1",
-      "pages": 200,
-      "timestamp": "2025-08-25T12:17:49"
-    },
-    {
-      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1944-1945",
-      "title": "Revista Matematicǎ din Timișoara, 1944-1945 (Anul 24, nr. 1-12)",
-      "subtitle": "1944-03-01 / nr. 1",
-      "pages": 200,
-      "timestamp": "2025-08-25T12:15:14"
-    },
-    {
-      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1943-1944",
-      "title": "Revista Matematicǎ din Timișoara, 1943-1944 (Anul 23, nr. 1-12)",
-      "subtitle": "1943-03-01 / nr. 1",
-      "pages": 200,
-      "timestamp": "2025-08-25T12:12:41"
-    },
-    {
-      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1942-1943",
-      "title": "Revista Matematicǎ din Timișoara, 1942-1943 (Anul 22, nr. 1-12)",
-      "subtitle": "1942-03-01 / nr. 1",
-      "pages": 204,
-      "timestamp": "2025-08-25T12:10:06"
-    },
-    {
-      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1941-1942",
-      "title": "Revista Matematicǎ din Timișoara, 1941-1942 (Anul 21, nr. 1-12)",
-      "subtitle": "1941-03-01 / nr. 1",
-      "pages": 208,
-      "timestamp": "2025-08-25T12:07:35"
-    },
-    {
-      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1940-1941",
-      "title": "Revista Matematicǎ din Timișoara, 1940-1941 (Anul 20, nr. 1-12)",
-      "subtitle": "1940-03-01 / nr. 1",
-      "pages": 216,
-      "timestamp": "2025-08-25T12:02:43"
-    },
-    {
-      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1939-1940",
-      "title": "Revista Matematicǎ din Timișoara, 1939-1940 (Anul 19, nr. 1-12)",
-      "subtitle": "1939-03-15 / nr. 1",
-      "pages": 244,
-      "timestamp": "2025-08-25T12:00:05"
-    }
-  ],
+  "pages_downloaded": 71814,
+  "recent_links": [],
   "daily_limit_hit": false,
-  "main_collection_completed": false,
-  "current_additional_collection_index": 1
+  "main_collection_completed": true,
+  "current_additional_collection_index": 4
 }

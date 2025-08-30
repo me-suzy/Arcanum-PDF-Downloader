@@ -27,11 +27,39 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import WebDriverException, ElementClickInterceptedException
 
+import logging
+import sys
+
+def setup_logging():
+    """Configurează logging în timp real"""
+    log_dir = r"E:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat 3\Logs"
+    os.makedirs(log_dir, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_file = os.path.join(log_dir, f"arcanum_download_{timestamp}.log")
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        handlers=[
+            logging.FileHandler(log_file, mode='w', encoding='utf-8'),
+            logging.StreamHandler(sys.stdout)
+        ]
+    )
+
+    for handler in logging.getLogger().handlers:
+        if isinstance(handler, logging.FileHandler):
+            handler.stream.reconfigure(line_buffering=True)
+
+    print(f"📝 LOGGING ACTIVAT: {log_file}")
+    return log_file
+
 # Colecțiile adiționale (procesate DUPĂ colecția principală din main())
 ADDITIONAL_COLLECTIONS = [
+    "https://adt.arcanum.com/ro/collection/StudiiSiCercetariMecanicaSiAplicata/", # lasi asta obligatoriu
+    "https://adt.arcanum.com/ro/collection/RevistaMatematicaDinTimisoara/",
     "https://adt.arcanum.com/ro/collection/StudiiSiCercetariMatematice/",
     "https://adt.arcanum.com/ro/collection/AnaleleUnivBucuresti_MatematicaMecanicaFizica/",
-    "https://adt.arcanum.com/ro/collection/RevistaMatematicaDinTimisoara/",
     "https://adt.arcanum.com/hu/collection/AMatematikaTanitasa/",
     "https://adt.arcanum.com/hu/collection/AFizikaTanitasa/",
     "https://adt.arcanum.com/hu/collection/AKemiaTanitasa/",
@@ -111,7 +139,7 @@ STATIC_SKIP_URLS = {
     "https://adt.arcanum.com/ro/view/Convietuirea_1997-1998"
 }
 
-DAILY_LIMIT = 105
+DAILY_LIMIT = 1050
 STATE_FILENAME = "state.json"
 SKIP_URLS_FILENAME = "skip_urls.json"
 
@@ -155,23 +183,28 @@ class ChromePDFDownloader:
         print(f"🚫 Total URL-uri de skip: {len(self.dynamic_skip_urls)}")
 
     def _save_skip_urls(self):
-        """FIXED: Verifică corect dacă un issue este complet"""
+        """FIXED: Verifică corect dacă un issue este complet - FOLOSEȘTE last_successful_segment_end!"""
         try:
             completed_urls = []
             for item in self.state.get("downloaded_issues", []):
-                # VERIFICARE CORECTĂ: issue-ul trebuie să aibă toate câmpurile necesare
+                # VERIFICARE CORECTĂ: folosește last_successful_segment_end, NU pages!
                 completed_at = item.get("completed_at")
                 total_pages = item.get("total_pages")
                 last_segment = item.get("last_successful_segment_end", 0)
+                pages = item.get("pages", 0)  # Pentru debug
 
-                # CONDIȚIE FIXATĂ: toate trebuie să fie setate și progresul să fie complet
+                # CONDIȚIE FIXATĂ: verifică progresul REAL (last_segment), nu pages!
                 if (completed_at and  # Marcat ca terminat
                     total_pages and  # Are total_pages setat
                     total_pages > 0 and  # Total valid
-                    last_segment >= total_pages):  # Progresul este complet
+                    last_segment >= total_pages):  # Progresul REAL este complet
 
                     completed_urls.append(item["url"])
                     print(f"✅ Issue complet pentru skip: {item['url']} ({last_segment}/{total_pages})")
+
+                    # DEBUG: Afișează discrepanțele
+                    if pages != last_segment:
+                        print(f"   ⚠ DISCREPANȚĂ: pages={pages}, last_segment={last_segment}")
                 else:
                     # DEBUG: Afișează de ce nu e considerat complet
                     if item.get("url"):  # Doar dacă are URL valid
@@ -179,6 +212,15 @@ class ChromePDFDownloader:
                         print(f"   completed_at: {bool(completed_at)}")
                         print(f"   total_pages: {total_pages}")
                         print(f"   last_segment: {last_segment}")
+                        print(f"   pages: {pages}")
+
+                        # Verifică fiecare condiție individual
+                        if not completed_at:
+                            print(f"   → Lipsește completed_at")
+                        elif not total_pages or total_pages <= 0:
+                            print(f"   → total_pages invalid")
+                        elif last_segment < total_pages:
+                            print(f"   → Progres incomplet: {last_segment}/{total_pages}")
 
             # Adaugă și cele statice
             all_completed = list(STATIC_SKIP_URLS) + completed_urls
@@ -199,6 +241,13 @@ class ChromePDFDownloader:
                 json.dump(data, f, indent=2, ensure_ascii=False)
 
             print(f"💾 Salvat {len(data['completed_urls'])} URL-uri CORECT VERIFICATE în {SKIP_URLS_FILENAME}")
+
+            # RAPORT FINAL pentru debugging
+            print(f"📋 ISSUES COMPLETE în skip_urls:")
+            for url in sorted(completed_urls):
+                year = url.split('_')[-1] if '_' in url else 'UNKNOWN'
+                print(f"   ✅ {year}")
+
         except Exception as e:
             print(f"⚠ Eroare la salvarea {SKIP_URLS_FILENAME}: {e}")
 
@@ -557,8 +606,68 @@ class ChromePDFDownloader:
         else:
             print("✅ Nu am găsit dubluri în state.json")
 
+    def is_issue_really_complete(self, item):
+            """HELPER: Verifică dacă un issue este REAL complet (nu doar marcat ca atare)"""
+            completed_at = item.get("completed_at")
+            last_segment = item.get("last_successful_segment_end", 0)
+            total_pages = item.get("total_pages")
+            pages = item.get("pages", 0)
+
+            # Un issue este REAL complet dacă:
+            # 1. Are completed_at setat ȘI
+            # 2. Are progresul complet (last_segment >= total_pages) ȘI
+            # 3. Are pages > 0 (nu e marcat greșit)
+            return (
+                completed_at and
+                total_pages and
+                total_pages > 0 and
+                last_segment >= total_pages and
+                pages > 0
+            )
+
+    def fix_incorrectly_marked_complete_issues(self):
+            """NOUĂ FUNCȚIE: Corectează issue-urile marcate greșit ca complete"""
+            print("🔧 CORECTEZ issue-urile marcate GREȘIT ca complete...")
+
+            fixes_applied = 0
+
+            for item in self.state.get("downloaded_issues", []):
+                completed_at = item.get("completed_at")
+                last_segment = item.get("last_successful_segment_end", 0)
+                total_pages = item.get("total_pages")
+                pages = item.get("pages", 0)
+                url = item.get("url", "")
+
+                # Detectează issue-uri marcate greșit ca complete
+                if (completed_at and
+                    pages == 0 and
+                    total_pages and
+                    last_segment < total_pages):
+
+                    print(f"🚨 CORECTEZ issue marcat GREȘIT ca complet: {url}")
+                    print(f"   Înainte: completed_at={completed_at}, pages={pages}")
+                    print(f"   Progres real: {last_segment}/{total_pages}")
+
+                    # Șterge completed_at pentru a-l face parțial din nou
+                    item["completed_at"] = ""
+                    item["pages"] = 0  # Asigură-te că pages rămâne 0
+
+                    fixes_applied += 1
+                    print(f"   După: completed_at='', pages=0 (va fi reluat)")
+
+            if fixes_applied > 0:
+                print(f"🔧 CORECTAT {fixes_applied} issue-uri marcate greșit ca complete")
+                self._save_state_safe()
+
+                # Actualizează și skip URLs
+                self._save_skip_urls()
+            else:
+                print("✅ Nu am găsit issue-uri marcate greșit ca complete")
+
+            return fixes_applied
+
     def get_pending_partial_issues(self):
-        """FIXED: Returnează issue-urile parțiale care trebuie continuate"""
+        """IMPROVED: Găsește TOATE issue-urile parțiale și le sortează corect"""
         pending_partials = []
 
         for item in self.state.get("downloaded_issues", []):
@@ -571,14 +680,35 @@ class ChromePDFDownloader:
             if url in self.dynamic_skip_urls:
                 continue
 
-            # Issue parțial: are progres, nu e complet, și mai sunt pagini de descărcat
-            if (last_segment > 0 and
-                not completed_at and
-                total_pages and
-                last_segment < total_pages):
+            # CONDIȚIE ÎMBUNĂTĂȚITĂ pentru issue-uri parțiale
+            is_partial = (
+                last_segment > 0 and  # Are progres
+                total_pages and total_pages > 0 and  # Are total_pages valid
+                last_segment < total_pages and  # Nu e complet
+                not completed_at  # Nu e marcat ca terminat
+            )
 
-                pending_partials.append(item)
-                print(f"🔄 Issue parțial găsit: {url} (pagini {last_segment}/{total_pages})")
+            if is_partial:
+                # CALCULEAZĂ procentul de completare pentru prioritizare
+                completion_percent = (last_segment / total_pages) * 100
+                item_with_priority = item.copy()
+                item_with_priority['completion_percent'] = completion_percent
+                item_with_priority['remaining_pages'] = total_pages - last_segment
+
+                pending_partials.append(item_with_priority)
+                print(f"🔄 Issue parțial găsit: {url}")
+                print(f"   📊 Progres: {last_segment}/{total_pages} ({completion_percent:.1f}%)")
+                print(f"   🎯 Rămân: {total_pages - last_segment} pagini")
+
+        # SORTARE ÎMBUNĂTĂȚITĂ: prioritizează după completitudine (cel mai aproape de final primul)
+        pending_partials.sort(key=lambda x: x['completion_percent'], reverse=True)
+
+        print(f"\n📋 ORDINEA DE PROCESARE A ISSUE-URILOR PARȚIALE:")
+        for i, item in enumerate(pending_partials):
+            url = item['url']
+            percent = item['completion_percent']
+            remaining = item['remaining_pages']
+            print(f"   {i+1}. {url.split('/')[-1]}: {percent:.1f}% complet, {remaining} pagini rămase")
 
         return pending_partials
 
@@ -790,22 +920,71 @@ class ChromePDFDownloader:
         print(f"💾 Progres salvat SAFE: {normalized} - pagini {last_successful_segment_end}/{total_pages or '?'}")
 
     def mark_issue_done(self, issue_url, pages_count, title=None, subtitle=None, total_pages=None):
-        """FIXED: Setează OBLIGATORIU total_pages corect, evită dublurile ȘI PĂSTREAZĂ ORDINEA CRONOLOGICĂ"""
+        """ULTRA SAFE: Verificări stricte înainte de a marca ca terminat"""
         normalized = issue_url.rstrip('/')
         now_iso = datetime.now().isoformat(timespec="seconds")
 
-        # VERIFICARE OBLIGATORIE: total_pages trebuie să fie setat corect
+        # ===== VERIFICĂRI ULTRA SAFE ÎNAINTE DE A MARCA CA TERMINAT =====
+
+        print(f"🔒 VERIFICĂRI ULTRA SAFE pentru marcarea ca terminat: {normalized}")
+
+        # VERIFICARE 1: total_pages trebuie să fie rezonabil
         if total_pages is None or total_pages <= 0:
-            print(f"⚠ EROARE: total_pages invalid ({total_pages}) pentru {normalized}")
-            print(f"🔧 Setez total_pages = pages_count ({pages_count}) ca fallback")
-            total_pages = pages_count
+            print(f"❌ BLOCARE SAFETY: total_pages invalid ({total_pages}) pentru {normalized}")
+            print(f"🛡️ NU MARCHEZ ca terminat fără total_pages valid!")
+            print(f"🔄 Marchează ca parțial cu progres {pages_count}")
 
-        # VERIFICARE LOGICĂ: pages_count nu poate fi mai mare decât total_pages
-        if pages_count > total_pages:
-            print(f"⚠ EROARE LOGICĂ: pages_count ({pages_count}) > total_pages ({total_pages})")
-            print(f"🔧 Corectez total_pages = pages_count")
-            total_pages = pages_count
+            # Marchează ca parțial, NU ca terminat
+            self._update_partial_issue_progress(
+                normalized, pages_count, total_pages=None, title=title, subtitle=subtitle
+            )
+            return
 
+        # VERIFICARE 2: pages_count trebuie să fie aproape de total_pages
+        completion_percentage = (pages_count / total_pages) * 100
+
+        if completion_percentage < 95:  # Trebuie să fie cel puțin 95% complet
+            print(f"❌ BLOCARE SAFETY: Progres insuficient pentru {normalized}")
+            print(f"📊 Progres: {pages_count}/{total_pages} ({completion_percentage:.1f}%)")
+            print(f"🛡️ Trebuie cel puțin 95% pentru a marca ca terminat!")
+            print(f"🔄 Marchează ca parțial în loc de terminat")
+
+            # Marchează ca parțial, NU ca terminat
+            self._update_partial_issue_progress(
+                normalized, pages_count, total_pages=total_pages, title=title, subtitle=subtitle
+            )
+            return
+
+        # VERIFICARE 3: Detectează batch size suspicious
+        if pages_count < 100 and total_pages > 500:
+            print(f"❌ BLOCARE SAFETY: Progres suspect de mic pentru {normalized}")
+            print(f"📊 {pages_count} pagini par să fie doar primul batch din {total_pages}")
+            print(f"🛡️ Probabil s-a oprit prematur, NU marchez ca terminat")
+
+            # Marchează ca parțial
+            self._update_partial_issue_progress(
+                normalized, pages_count, total_pages=total_pages, title=title, subtitle=subtitle
+            )
+            return
+
+        # VERIFICARE 4: Verifică dacă pages_count pare să fie doar primul segment
+        if total_pages >= 1000 and pages_count < 100:
+            print(f"❌ BLOCARE SAFETY: {pages_count} pagini din {total_pages} pare primul segment")
+            print(f"🛡️ NU marchez issues mari ca terminate cu progres atât de mic")
+
+            # Marchează ca parțial
+            self._update_partial_issue_progress(
+                normalized, pages_count, total_pages=total_pages, title=title, subtitle=subtitle
+            )
+            return
+
+        # ===== TOATE VERIFICĂRILE AU TRECUT - SAFE SĂ MARCHEZ CA TERMINAT =====
+
+        print(f"✅ TOATE VERIFICĂRILE ULTRA SAFE trecute pentru {normalized}")
+        print(f"📊 Progres: {pages_count}/{total_pages} ({completion_percentage:.1f}%)")
+        print(f"🎯 Marchez ca TERMINAT")
+
+        # Continuă cu logica originală de marcare ca terminat...
         existing = None
         existing_index = -1
 
@@ -1156,6 +1335,7 @@ class ChromePDFDownloader:
             return False
 
     def check_daily_limit_in_all_windows(self, set_flag=True):
+        # return False  # Add this line at the top to disable detection
         """Verifică mesajul de limită zilnică în toate ferestrele deschise"""
         current_window = self.driver.current_window_handle
         limit_reached = False
@@ -1198,79 +1378,276 @@ class ChromePDFDownloader:
         return limit_reached
 
     def check_for_daily_limit_popup(self):
-        """Verifică dacă s-a deschis o filă nouă cu mesajul de limită zilnică după descărcare"""
+        """
+        Verifică dacă s-a deschis o filă nouă cu mesajul de limită zilnică după descărcare.
+        UPDATED: Detectează noua pagină prin multiple metode + verificare structură HTML
+        """
         try:
             current_handles = set(self.driver.window_handles)
+
+            print(f"🔍 Verific {len(current_handles)} file deschise pentru limita zilnică...")
 
             # Verifică toate filele deschise pentru mesajul de limită
             for handle in current_handles:
                 try:
                     self.driver.switch_to.window(handle)
+
+                    # Obține textul complet al paginii
                     body_text = self.driver.find_element(By.TAG_NAME, "body").text.strip()
 
-                    if "Daily download limit reached" in body_text:
-                        print(f"🛑 LIMITĂ ZILNICĂ DETECTATĂ în filă nouă: {handle}")
-                        print(f"📄 Conținut filă: {body_text}")
+                    # Obține URL-ul pentru debugging
+                    current_url = self.driver.current_url
 
-                        # Închide fila cu limita
-                        self.driver.close()
+                    # Obține sursa HTML pentru verificarea structurii
+                    try:
+                        page_source = self.driver.page_source
+                    except:
+                        page_source = ""
 
-                        # Revine la prima filă disponibilă
-                        if self.driver.window_handles:
-                            self.driver.switch_to.window(self.driver.window_handles[0])
+                    # DETECTOARE MULTIPLE pentru limita zilnică
+                    limit_detected = False
+                    detection_reason = ""
+
+                    # 1. NOUA PAGINĂ: "Vezi Termeni de utilizare"
+                    if ("Vezi" in body_text and
+                        ("Termeni de utilizare" in body_text or "conditii-de-utilizare" in current_url)):
+                        limit_detected = True
+                        detection_reason = "NOUĂ PAGINĂ - Vezi Termeni de utilizare"
+
+                    # 2. VECHEA PAGINĂ: "Daily download limit reached"
+                    elif "Daily download limit reached" in body_text:
+                        limit_detected = True
+                        detection_reason = "VECHE PAGINĂ - Daily download limit reached"
+
+                    # 3. DETECTARE PRIN URL: dacă URL-ul conține "conditii-de-utilizare"
+                    elif "conditii-de-utilizare" in current_url:
+                        limit_detected = True
+                        detection_reason = "URL DETECTARE - conditii-de-utilizare"
+
+                    # 4. DETECTARE PRIN LINK: caută linkul specific
+                    elif "www.arcanum.com/ro/adt/conditii-de-utilizare" in body_text:
+                        limit_detected = True
+                        detection_reason = "LINK DETECTARE - arcanum.com conditii"
+
+                    # 5. **NOUĂ DETECTARE**: Verifică structura HTML normală
+                    elif page_source and not self._has_normal_html_structure(page_source):
+                        # Verifică dacă e o pagină anormală (fără structura HTML standard)
+                        # și dacă conținutul e suspect de mic sau conține cuvinte cheie
+                        if (len(body_text.strip()) < 500 and
+                            (any(keyword in body_text.lower() for keyword in
+                                ['limit', 'vezi', 'termeni', 'utilizare', 'download', 'reached']) or
+                             len(body_text.strip()) < 100)):
+                            limit_detected = True
+                            detection_reason = "STRUCTURĂ HTML ANORMALĂ - probabil pagină de limită"
+
+                    # 6. DETECTARE GENERALĂ: pagină suspicioasă cu puțin conținut și "Vezi"
+                    elif (len(body_text.strip()) < 200 and
+                          "Vezi" in body_text and
+                          len(body_text.split()) < 20):
+                        limit_detected = True
+                        detection_reason = "DETECTARE GENERALĂ - pagină suspicioasă cu 'Vezi'"
+
+                    # DEBUGGING: Afișează conținutul suspicios
+                    if (self._is_suspicious_page(body_text, current_url, page_source)):
+                        html_structure_ok = self._has_normal_html_structure(page_source)
+                        print(f"🔍 FILĂ SUSPICIOASĂ {handle}:")
+                        print(f"   📄 URL: {current_url}")
+                        print(f"   📝 Conținut ({len(body_text)} chars): '{body_text[:200]}{'...' if len(body_text) > 200 else ''}'")
+                        print(f"   🏗️ Structură HTML normală: {html_structure_ok}")
+                        print(f"   🎯 Detectat limit: {limit_detected} ({detection_reason})")
+
+                    # ACȚIUNE: Dacă limita a fost detectată
+                    if limit_detected:
+                        print(f"🛑 LIMITĂ ZILNICĂ DETECTATĂ în filă: {handle}")
+                        print(f"🔍 MOTIV: {detection_reason}")
+                        print(f"📄 URL complet: {current_url}")
+                        print(f"📝 Conținut complet filă:")
+                        print(f"   '{body_text}'")
+                        print(f"🏗️ Structură HTML: {self._has_normal_html_structure(page_source)}")
+
+                        # Închide fila cu limita (dar doar dacă nu e singura filă)
+                        if len(current_handles) > 1:
+                            print(f"🗙 Închid fila cu limita: {handle}")
+                            self.driver.close()
+
+                            # Revine la prima filă disponibilă
+                            if self.driver.window_handles:
+                                self.driver.switch_to.window(self.driver.window_handles[0])
+                                print(f"↩️ Revin la fila principală")
+                        else:
+                            print(f"⚠ Nu închid fila - este singura rămasă")
 
                         # Setează flag-ul și oprește procesarea
                         self.state["daily_limit_hit"] = True
                         self._save_state()
+                        print(f"🛑 Flag daily_limit_hit setat în state.json")
+
                         return True
 
                 except Exception as e:
+                    print(f"⚠ Eroare la verificarea filei {handle}: {e}")
                     continue
 
+            print(f"✅ Nu am detectat limita zilnică în {len(current_handles)} file")
             return False
 
         except Exception as e:
-            print(f"⚠ Eroare la verificarea popup-ului de limită: {e}")
+            print(f"❌ Eroare fatală în verificarea popup-ului de limită: {e}")
+            import traceback
+            traceback.print_exc()
             return False
 
+    def _has_normal_html_structure(self, page_source):
+        """
+        FIXED: Verifică dacă pagina are structura HTML normală specifică site-ului Arcanum.
+        IMPORTANT: Chrome page_source nu întotdeauna include DOCTYPE, deci nu ne bazăm pe el!
+        """
+        if not page_source:
+            return False
+
+        # Normalizează spațiile și new lines pentru verificare
+        normalized_source = ' '.join(page_source.strip().split())
+        normalized_start = normalized_source[:500].lower()
+
+        # INDICATORI POZITIVI pentru pagini normale Arcanum
+        normal_indicators = [
+            'html lang="ro"',                    # Toate paginile Arcanum au asta
+            '<title>',                           # Toate au titlu
+            '<head>',                           # Toate au head
+            'ziarele arcanum',                  # În titlu
+            'meta charset="utf-8"',             # Meta charset standard
+            'meta name="viewport"'              # Meta viewport standard
+        ]
+
+        # INDICATORI NEGATIVI pentru pagini de limită/eroare
+        limit_indicators = [
+            'vezi',                             # "Vezi Termeni de utilizare"
+            'conditii-de-utilizare',            # URL sau link către condiții
+            'daily download limit',             # Vechiul mesaj
+            'terms and conditions'              # Versiunea engleză
+        ]
+
+        # Contorizează indicatorii pozitivi
+        positive_count = sum(1 for indicator in normal_indicators
+                            if indicator in normalized_start)
+
+        # Contorizează indicatorii negativi
+        negative_count = sum(1 for indicator in limit_indicators
+                            if indicator in normalized_start)
+
+        # Verifică dimensiunea - paginile de limită sunt foarte mici
+        is_too_small = len(normalized_source) < 300
+
+        # LOGICA DE DECIZIE:
+        # 1. Dacă are indicatori negativi ȘI e mică → pagină de limită
+        if negative_count > 0 and is_too_small:
+            print(f"🚨 PAGINĂ DE LIMITĂ detectată:")
+            print(f"   Indicatori negativi: {negative_count}")
+            print(f"   Dimensiune: {len(normalized_source)} chars")
+            print(f"   Conținut: '{normalized_source[:200]}'")
+            return False
+
+        # 2. Dacă are suficienți indicatori pozitivi → pagină normală
+        if positive_count >= 4:  # Cel puțin 4 din 6 indicatori pozitivi
+            return True
+
+        # 3. Dacă e foarte mică și fără indicatori pozitivi → suspicioasă
+        if is_too_small and positive_count < 2:
+            print(f"🔍 PAGINĂ SUSPICIOASĂ (prea mică și fără indicatori):")
+            print(f"   Indicatori pozitivi: {positive_count}/6")
+            print(f"   Dimensiune: {len(normalized_source)} chars")
+            print(f"   Conținut: '{normalized_source[:200]}'")
+            return False
+
+        # 4. În toate celelalte cazuri → consideră normală
+        return True
+
+    def _is_suspicious_page(self, body_text, url, page_source):
+        """
+        UPDATED: Helper mai inteligent pentru a determina dacă o pagină merită debugging
+        """
+        # Indicatori clari de pagini problematice
+        clear_limit_signs = [
+            "Vezi" in body_text and len(body_text) < 200,
+            "conditii" in body_text.lower(),
+            "limit" in body_text.lower() and len(body_text) < 500,
+            "daily download" in body_text.lower()
+        ]
+
+        # Pagini foarte mici sunt întotdeauna suspicioase
+        too_small = len(body_text.strip()) < 100
+
+        # NU detecta ca suspicioase paginile normale mari
+        is_normal_arcanum = (
+            len(body_text) > 500 and
+            "Analele" in body_text and
+            ("Universității" in body_text or "Matematică" in body_text)
+        )
+
+        if is_normal_arcanum:
+            return False  # Nu e suspicioasă - e pagină normală Arcanum
+
+        return any(clear_limit_signs) or too_small
+
     def save_page_range(self, start, end, retries=1):
-        """FIXED: Verifică limita zilnică după fiecare segment descărcat"""
-        for attempt in range(1, retries + 2):
-            print(f"🔄 Încep segmentul {start}-{end}, încercarea {attempt}")
+            """FIXED: Verifică URL-ul înainte de fiecare descărcare + verifică limita zilnică"""
+            for attempt in range(1, retries + 2):
+                print(f"🔄 Încep segmentul {start}-{end}, încercarea {attempt}")
 
-            if not self.open_save_popup():
-                print(f"⚠ Eșec la deschiderea popup-ului pentru {start}-{end}")
-                time.sleep(1)
-                continue
+                # VERIFICARE CRITICĂ: Suntem pe documentul corect?
+                try:
+                    current_url = self.driver.current_url
+                    if self.current_issue_url not in current_url:
+                        print(f"🚨 EROARE: Browser-ul a navigat la URL greșit!")
+                        print(f"   Așteptat: {self.current_issue_url}")
+                        print(f"   Actual: {current_url}")
+                        print(f"🔄 Renavigez la documentul corect...")
 
-            success = self.fill_and_save_range(start, end)
-            if success:
-                print("⏳ Aștept 5s pentru finalizarea descărcării segmentului...")
-                time.sleep(5)
+                        if not self.navigate_to_page(self.current_issue_url):
+                            print(f"❌ Nu pot renaviga la {self.current_issue_url}")
+                            return False
 
-                # VERIFICĂ LIMITA ZILNICĂ IMEDIAT DUPĂ DESCĂRCARE
-                if self.check_for_daily_limit_popup():
-                    print(f"🛑 OPRIRE INSTANT - Limită zilnică detectată după segmentul {start}-{end}")
-                    return False
+                        time.sleep(3)  # Așteaptă încărcarea completă
+                        print(f"✅ Renavigat cu succes la documentul corect")
+                except Exception as e:
+                    print(f"⚠ Eroare la verificarea URL-ului: {e}")
 
-                print(f"✅ Segmentul {start}-{end} descărcat cu succes")
-                return True
-            else:
-                print(f"⚠ Retry pentru segmentul {start}-{end}")
-                time.sleep(1)
-        print(f"❌ Renunț la segmentul {start}-{end} după {retries+1} încercări.")
-        return False
+                if not self.open_save_popup():
+                    print(f"⚠ Eșec la deschiderea popup-ului pentru {start}-{end}")
+                    time.sleep(1)
+                    continue
+
+                success = self.fill_and_save_range(start, end)
+                if success:
+                    print("⏳ Aștept 5s pentru finalizarea descărcării segmentului...")
+                    time.sleep(5)
+
+                    # VERIFICĂ LIMITA ZILNICĂ IMEDIAT DUPĂ DESCĂRCARE
+                    if self.check_for_daily_limit_popup():
+                        print(f"🛑 OPRIRE INSTANT - Limită zilnică detectată după segmentul {start}-{end}")
+                        return False
+
+                    print(f"✅ Segmentul {start}-{end} descărcat cu succes")
+                    return True
+                else:
+                    print(f"⚠ Retry pentru segmentul {start}-{end}")
+                    time.sleep(1)
+            print(f"❌ Renunț la segmentul {start}-{end} după {retries+1} încercări.")
+            return False
 
     def save_all_pages_in_batches(self, resume_from=1):
-        """FIXED: Oprește instant la detectarea limitei zilnice"""
+        """IMPROVED: Nu abandonează issue-ul la prima eroare, continuă cu segmentele următoare"""
         total = self.get_total_pages()
         if total <= 0:
             print("⚠ Nu am obținut numărul total de pagini; nu pot continua.")
             return 0, False
 
+        print(f"🎯 TOTAL PAGINI DETECTAT: {total}")
+
         bs = self.batch_size
         segments = []
 
+        # Creează lista completă de segmente
         if resume_from == 1:
             first_end = min(bs - 1, total)
             if first_end >= 1:
@@ -1285,50 +1662,185 @@ class ChromePDFDownloader:
             current += bs
 
         last_successful_page = resume_from - 1
+        failed_segments = []
+        consecutive_failures = 0  # NOUĂ VARIABILĂ
+        MAX_CONSECUTIVE_FAILURES = 3  # Abandonează doar după 3 eșecuri consecutive
 
-        print(f"🎯 FOCUSEZ PE ACEST ISSUE: Voi descărca {len(segments)} segmente fără întreruperi")
+        print(f"🎯 FOCUSEZ PE ACEST ISSUE: Voi descărca {len(segments)} segmente")
 
-        for (start, end) in segments:
-            print(f"📦 Procesez segmentul {start}-{end}")
-            result = self.save_page_range(start, end, retries=1)
+        for i, (start, end) in enumerate(segments):
+            print(f"📦 Procesez segmentul {start}-{end} ({i+1}/{len(segments)})")
+            result = self.save_page_range(start, end, retries=3)  # Mărește retry-urile
 
             if not result:
                 # VERIFICĂ DACĂ EȘECUL E DIN CAUZA LIMITEI ZILNICE
                 if self.state.get("daily_limit_hit", False):
-                    print(f"🛑 OPRIRE INSTANT - Limită zilnică atinsă la segmentul {start}-{end}")
-                    return last_successful_page, True  # Returnează TRUE pentru limită zilnică
+                    print(f"🛑 OPRIRE - Limită zilnică atinsă la segmentul {start}-{end}")
+                    return last_successful_page, True
 
-                print(f"❌ Eșec persistent la segmentul {start}-{end}, opresc acest issue.")
-                return last_successful_page, False
+                print(f"❌ SEGMENT EȘUAT: {start}-{end}")
+                failed_segments.append((start, end))
+                consecutive_failures += 1
 
-            last_successful_page = end
-            self._update_partial_issue_progress(self.current_issue_url, end, total_pages=total)
-            print(f"✅ Progres real salvat: pagini până la {end}")
+                # LOGICĂ ÎMBUNĂTĂȚITĂ: nu abandona imediat
+                if consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
+                    print(f"🚨 PREA MULTE EȘECURI CONSECUTIVE ({consecutive_failures})")
+                    print(f"🔄 ÎNCERC RECOVERY COMPLET...")
+
+                    # Recovery mai agresiv
+                    try:
+                        if not self.setup_chrome_driver():
+                            print(f"❌ Recovery eșuat - opresc procesarea")
+                            break
+                        if not self.navigate_to_page(self.current_issue_url):
+                            print(f"❌ Nu pot renaviga după recovery")
+                            break
+
+                        # Resetează contorul după recovery reușit
+                        consecutive_failures = 0
+                        print(f"✅ Recovery reușit - continui cu următoarele segmente")
+                        time.sleep(5)  # Pauză mai lungă
+
+                    except Exception as e:
+                        print(f"❌ Eroare în recovery: {e}")
+                        break
+                else:
+                    print(f"🔄 Eșecuri consecutive: {consecutive_failures}/{MAX_CONSECUTIVE_FAILURES}")
+                    print(f"⏳ Continui cu următorul segment după pauză...")
+                    time.sleep(2)  # Pauză scurtă între segmente eșuate
+            else:
+                # SEGMENT REUȘIT - resetează contorul
+                consecutive_failures = 0
+                last_successful_page = end
+                self._update_partial_issue_progress(self.current_issue_url, end, total_pages=total)
+                print(f"✅ Progres salvat: pagini până la {end}")
+
             time.sleep(1)
 
-        print("🎯 Toate segmentele au fost procesate pentru acest issue.")
-        return total, False
+        # RAPORTARE FINALĂ ÎMBUNĂTĂȚITĂ
+        successful_segments = len(segments) - len(failed_segments)
+        print(f"📊 PROGRES FINAL: {last_successful_page}/{total} pagini")
+        print(f"📊 SEGMENTE: {successful_segments}/{len(segments)} reușite")
+
+        if failed_segments:
+            print(f"📊 SEGMENTE EȘUATE: {len(failed_segments)}")
+            # Grupează segmentele eșuate consecutive pentru raportare mai clară
+            ranges = []
+            start_range = failed_segments[0][0]
+            end_range = failed_segments[0][1]
+
+            for i in range(1, len(failed_segments)):
+                if failed_segments[i][0] == end_range + 1:
+                    end_range = failed_segments[i][1]
+                else:
+                    ranges.append((start_range, end_range))
+                    start_range = failed_segments[i][0]
+                    end_range = failed_segments[i][1]
+            ranges.append((start_range, end_range))
+
+            print(f"🔄 Range-uri eșuate pentru reluare:")
+            for start, end in ranges:
+                print(f"   ❌ {start}-{end}")
+
+        # Consideră terminat doar dacă progresul e >98% și eșecurile sunt < 5%
+        completion_rate = (last_successful_page / total) * 100
+        failure_rate = (len(failed_segments) / len(segments)) * 100
+        is_complete = completion_rate >= 98 and failure_rate < 5
+
+        return last_successful_page, False
 
     def extract_issue_links_from_collection(self):
+        """
+        FIXED: Extrage toate linkurile de issue din colecție, inclusiv pentru limba ungară
+        Folosește selector generic pentru a detecta orice limbă (/view/, /ro/view/, /en/view/, /hu/view/)
+        """
         try:
+            # Așteaptă ca lista să se încarce
             self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'ul.list-group')))
-            anchors = self.driver.find_elements(By.CSS_SELECTOR, 'li.list-group-item a[href^="/view/"], li.list-group-item a[href^="/en/view/"], li.list-group-item a[href^="/ro/view/"]')
+
+            # SELECTOR GENERIC: orice link care conține '/view/' în href
+            anchors = self.driver.find_elements(By.CSS_SELECTOR, 'li.list-group-item a[href*="/view/"]')
+
+            print(f"🔍 Am găsit {len(anchors)} linkuri brute cu '/view/' în colecție")
+
             links = []
             for a in anchors:
                 href = a.get_attribute("href")
                 if href and '/view/' in href:
+                    # Normalizează URL-ul (elimină parametrii și slash-ul final)
                     normalized = href.split('?')[0].rstrip('/')
                     links.append(normalized)
+
+            # Elimină dublurile păstrând ordinea
             unique = []
             seen = set()
             for l in links:
                 if l not in seen:
                     seen.add(l)
                     unique.append(l)
-            print(f"🔗 Am găsit {len(unique)} linkuri de issue în colecție.")
+
+            print(f"🔗 Am găsit {len(unique)} linkuri UNICE de issue în colecție")
+
+            # DEBUGGING pentru colecțiile problematice
+            if len(unique) == 0:
+                print(f"🔍 DEBUG - Nu am găsit linkuri. Analizez structura paginii...")
+
+                # Verifică dacă există lista de grupuri
+                try:
+                    list_groups = self.driver.find_elements(By.CSS_SELECTOR, 'ul.list-group')
+                    print(f"🔍 Liste grup găsite: {len(list_groups)}")
+
+                    list_items = self.driver.find_elements(By.CSS_SELECTOR, 'li.list-group-item')
+                    print(f"🔍 Elemente listă găsite: {len(list_items)}")
+
+                    # Verifică toate linkurile din pagină
+                    all_links = self.driver.find_elements(By.CSS_SELECTOR, 'a[href*="/view/"]')
+                    print(f"🔍 TOATE linkurile cu '/view/' din pagină: {len(all_links)}")
+
+                    for i, link in enumerate(all_links[:10]):  # Primele 10 pentru debugging
+                        href = link.get_attribute("href")
+                        text = link.text.strip()[:50]
+                        print(f"   {i+1}. 🔗 {href}")
+                        print(f"      📝 Text: '{text}'")
+
+                    # Verifică structura HTML a primelor elemente
+                    if list_items:
+                        print(f"🔍 Primul element listă HTML:")
+                        print(f"   {list_items[0].get_attribute('outerHTML')[:200]}...")
+
+                except Exception as debug_e:
+                    print(f"⚠ Eroare în debugging: {debug_e}")
+            else:
+                # Afișează primele câteva linkuri găsite pentru verificare
+                print(f"📋 Primele linkuri găsite:")
+                for i, link in enumerate(unique[:5]):
+                    # Extrage anul sau identificatorul din URL
+                    parts = link.split('/')[-1].split('_')
+                    identifier = parts[-1] if len(parts) > 1 else "N/A"
+                    print(f"   {i+1}. 🔗 {identifier}: {link}")
+
+                if len(unique) > 5:
+                    print(f"   📊 ... și încă {len(unique) - 5} linkuri")
+
             return unique
+
         except Exception as e:
             print(f"❌ Eroare la extragerea linkurilor din colecție: {e}")
+
+            # Debugging suplimentar în caz de eroare
+            try:
+                current_url = self.driver.current_url
+                page_title = self.driver.title
+                print(f"🔍 URL curent: {current_url}")
+                print(f"🔍 Titlu pagină: {page_title}")
+
+                # Verifică dacă pagina s-a încărcat corect
+                body_text = self.driver.find_element(By.TAG_NAME, "body").text[:200]
+                print(f"🔍 Început conținut: '{body_text}...'")
+
+            except Exception as debug_e:
+                print(f"⚠ Eroare în debugging după eroare: {debug_e}")
+
             return []
 
     def extract_page_range_from_filename(self, filename):
@@ -1342,12 +1854,17 @@ class ChromePDFDownloader:
 
     def copy_and_combine_issue_pdfs(self, issue_url: str, issue_title: str):
         """
-        FIXED: MUTĂ fișierele în folder și le combină (nu mai păstrează pe D:\)
+        FIXED: MUTĂ fișierele în folder și le combină (nu mai păstrează pe D:)
+        ADDED: Face backup în g:Temporare înainte de procesare
         """
         issue_id = issue_url.rstrip('/').split('/')[-1]
         folder_name = self._safe_folder_name(issue_title or issue_id)
         dest_dir = os.path.join(self.download_dir, folder_name)
         os.makedirs(dest_dir, exist_ok=True)
+
+        # DIRECTORUL DE BACKUP
+        backup_base_dir = r"g:\Temporare"
+        backup_dir = os.path.join(backup_base_dir, folder_name)
 
         print(f"📁 Procesez PDF-urile pentru '{issue_title}' cu ID '{issue_id}'")
 
@@ -1366,7 +1883,38 @@ class ChromePDFDownloader:
         for seg in all_segments:
             print(f"   📄 {seg['filename']} (pagini {seg['start']}-{seg['end']})")
 
-        # PASUL 2: MUTĂ (nu copiază) TOATE fișierele în folder
+        # PASUL 1.5: CREEAZĂ BACKUP-UL ÎNAINTE DE PROCESARE
+        print(f"💾 Creez backup în: {backup_dir}")
+        try:
+            os.makedirs(backup_dir, exist_ok=True)
+            backup_success = True
+            backup_size_total = 0
+
+            for seg in all_segments:
+                src = seg['path']
+                backup_dst = os.path.join(backup_dir, seg['filename'])
+
+                try:
+                    shutil.copy2(src, backup_dst)  # copy2 păstrează și metadata
+                    file_size = os.path.getsize(backup_dst)
+                    backup_size_total += file_size
+                    print(f"💾 BACKUP: {seg['filename']} → g:\\Temporare\\{folder_name}\\")
+                except Exception as e:
+                    print(f"⚠ EROARE backup pentru {seg['filename']}: {e}")
+                    backup_success = False
+
+            backup_size_mb = backup_size_total / (1024 * 1024)
+            if backup_success:
+                print(f"✅ BACKUP COMPLET: {len(all_segments)} fișiere ({backup_size_mb:.2f} MB) în {backup_dir}")
+            else:
+                print(f"⚠ BACKUP PARȚIAL: Unele fișiere nu au putut fi copiate în backup")
+
+        except Exception as e:
+            print(f"❌ EROARE la crearea backup-ului: {e}")
+            print(f"🛡️ OPRESC PROCESAREA pentru siguranță - fișierele rămân pe D:\\")
+            return
+
+        # PASUL 2: MUTĂ (nu copiază) TOATE fișierele în folder (DOAR DUPĂ backup SUCCESS)
         moved_files = []
         for seg in all_segments:
             src = seg['path']
@@ -1383,6 +1931,7 @@ class ChromePDFDownloader:
             return
 
         print(f"📁 Toate {len(moved_files)} PDF-urile pentru '{issue_title}' au fost MUTATE în '{dest_dir}'.")
+        print(f"💾 BACKUP SIGUR găsit în: {backup_dir}")
 
         # PASUL 3: Combină PDF-urile în ordinea corectă
         output_file = os.path.join(dest_dir, f"{folder_name}.pdf")
@@ -1445,10 +1994,12 @@ class ChromePDFDownloader:
                     deleted_size_mb = total_deleted_size / (1024 * 1024)
                     print(f"🎉 FINALIZAT: Păstrat doar fișierul combinat '{os.path.basename(output_file)}'")
                     print(f"🗑️ Șterse {deleted_count} segmente originale ({deleted_size_mb:.2f} MB)")
+                    print(f"💾 BACKUP SIGUR: Segmentele originale păstrate în {backup_dir}")
 
                 else:
                     print(f"❌ EROARE: Fișierul combinat nu a fost creat corect!")
                     print(f"🛡️ SIGURANȚĂ: Păstrez segmentele pentru siguranță")
+                    print(f"💾 BACKUP DISPONIBIL: {backup_dir}")
 
             elif len(moved_files) == 1:
                 # Un singur fișier - doar redenumește
@@ -1458,6 +2009,7 @@ class ChromePDFDownloader:
                 try:
                     os.replace(original_file, output_file)
                     print(f"✅ Fișierul redenumit în: {os.path.basename(output_file)} ({original_size_mb:.2f} MB)")
+                    print(f"💾 BACKUP SIGUR: Originalul păstrat în {backup_dir}")
                 except Exception as e:
                     print(f"⚠ Nu am putut redenumi {original_file}: {e}")
 
@@ -1467,6 +2019,7 @@ class ChromePDFDownloader:
         except Exception as e:
             print(f"❌ EROARE la combinarea PDF-urilor: {e}")
             print(f"🛡️ SIGURANȚĂ: Păstrez segmentele din cauza erorii")
+            print(f"💾 BACKUP DISPONIBIL: {backup_dir}")
             return
 
         # PASUL 4: Raport final
@@ -1478,9 +2031,11 @@ class ChromePDFDownloader:
                 print(f"   📁 Folder destinație: {dest_dir}")
                 print(f"   📄 Fișier final: {os.path.basename(output_file)} ({final_size_mb:.2f} MB)")
                 print(f"   🔍 Combinat din {len(all_segments)} segmente")
-                print(f"   ✅ STATUS: SUCCES - fișier complet creat, segmente șterse de pe D:\\")
+                print(f"   💾 BACKUP SIGUR: {backup_dir} ({backup_size_mb:.2f} MB)")
+                print(f"   ✅ STATUS: SUCCES - fișier complet creat, backup realizat, segmente șterse de pe D:\\")
             else:
                 print(f"⚠ Nu s-a putut crea fișierul final pentru '{issue_title}'")
+                print(f"💾 BACKUP DISPONIBIL: {backup_dir}")
         except Exception as e:
             print(f"⚠ Eroare la raportul final: {e}")
 
@@ -1511,21 +2066,26 @@ class ChromePDFDownloader:
             return collection_links[0] if collection_links else None
 
     def get_last_completed_issue_from_collection(self, collection_links):
-        """
-        Găsește ultimul issue complet descărcat din colecția curentă
-        """
-        for item in self.state.get("downloaded_issues", []):
-            url = item.get("url", "").rstrip('/')
-            if url in [link.rstrip('/') for link in collection_links]:
-                if item.get("completed_at"):  # Issue complet
-                    print(f"🏁 Ultimul issue complet din colecție: {url}")
-                    return url
+            """FIXED: Găsește ultimul issue REAL complet descărcat din colecția curentă"""
+            for item in self.state.get("downloaded_issues", []):
+                url = item.get("url", "").rstrip('/')
+                if url in [link.rstrip('/') for link in collection_links]:
 
-        print("🆕 Niciun issue complet găsit în colecția curentă")
-        return None
+                    # VERIFICARE CORECTĂ: Issue-ul trebuie să fie REAL complet
+                    if self.is_issue_really_complete(item):
+                        print(f"🏁 Ultimul issue REAL complet din colecție: {url}")
+                        return url
+                    elif item.get("completed_at"):
+                        last_segment = item.get("last_successful_segment_end", 0)
+                        total_pages = item.get("total_pages")
+                        pages = item.get("pages", 0)
+                        print(f"⚠ Issue marcat ca complet dar INCOMPLET: {url} ({last_segment}/{total_pages}, pages: {pages})")
+
+            print("🆕 Niciun issue REAL complet găsit în colecția curentă")
+            return None
 
     def open_new_tab_and_download(self, url):
-        """FIXED: Se focusează pe un singur issue până la final cu sincronizare completă"""
+        """FIXED: Se focusează pe un singur issue până la final cu verificări ultra-safe"""
         normalized_url = url.rstrip('/')
 
         # DOAR verificările esențiale la început
@@ -1561,7 +2121,7 @@ class ChromePDFDownloader:
                 print(f"❌ Nu am putut naviga la {url}")
                 return False
 
-            time.sleep(2)  # Pauză pentru încărcarea completă
+            time.sleep(2)
 
             # Verifică DOAR o dată la început pentru limită
             if self.check_daily_limit_in_all_windows(set_flag=False):
@@ -1611,6 +2171,11 @@ class ChromePDFDownloader:
             print(f"📥 ÎNCEPE DESCĂRCAREA pentru {url}...")
             pages_done, limit_hit = self.save_all_pages_in_batches(resume_from=resume_from)
 
+            print(f"📊 REZULTAT DESCĂRCARE:")
+            print(f"   📄 Pagini descărcate: {pages_done}")
+            print(f"   📄 Total necesar: {total_pages}")
+            print(f"   🛑 Limită zilnică: {limit_hit}")
+
             if pages_done == 0 and not limit_hit:
                 print(f"⚠ Descărcarea pentru {url} a eșuat complet.")
                 return False
@@ -1619,16 +2184,64 @@ class ChromePDFDownloader:
                 print(f"⚠ Limită zilnică atinsă în timpul descărcării pentru {url}; progresul parțial a fost salvat.")
                 return False
 
-            # ==================== DESCĂRCAREA S-A TERMINAT ====================
-            print(f"✅ DESCĂRCAREA COMPLETĂ pentru {url} ({pages_done} pagini)")
+            # ==================== VERIFICĂRI ULTRA SAFE ÎNAINTE DE FINALIZARE ====================
+
+            print(f"🔍 VERIFICĂRI FINALE ULTRA SAFE pentru {url}...")
+            print(f"📊 Rezultat descărcare: {pages_done} pagini din {total_pages}")
+
+            # Verifică dacă total_pages a fost detectat corect
+            if total_pages <= 0:
+                print(f"❌ OPRIRE SAFETY: total_pages nu a fost detectat corect ({total_pages})")
+                print(f"🛡️ NU marchez ca terminat fără total_pages valid")
+                print(f"🔄 Păstrez ca parțial cu progres {pages_done}")
+
+                self._update_partial_issue_progress(
+                    normalized_url, pages_done, total_pages=None, title=title, subtitle=subtitle
+                )
+                return True  # Succes parțial
+
+            # VERIFICARE CRITICĂ: Progresul trebuie să fie aproape complet
+            completion_percent = (pages_done / total_pages) * 100
+            print(f"📊 Completitudine calculată: {completion_percent:.1f}%")
+
+            if completion_percent < 95:  # Cel puțin 95%
+                print(f"❌ BLOCARE SAFETY: Progres insuficient pentru marcare ca terminat")
+                print(f"📊 Progres: {pages_done}/{total_pages} ({completion_percent:.1f}%)")
+                print(f"🛡️ Trebuie cel puțin 95% pentru a marca ca terminat!")
+                print(f"🔄 Păstrez ca PARȚIAL pentru continuare ulterioară")
+
+                # Marchează ca parțial, NU ca terminat
+                self._update_partial_issue_progress(
+                    normalized_url, pages_done, total_pages=total_pages, title=title, subtitle=subtitle
+                )
+
+                print(f"💾 Issue {url} păstrat ca parțial: {pages_done}/{total_pages}")
+                print(f"🔄 Va fi continuat automat la următoarea rulare")
+                return True  # Succes parțial - va continua mai târziu
+
+            # VERIFICARE SUPLIMENTARĂ: Issues mari cu progres mic
+            if total_pages >= 500 and pages_done < 200:
+                print(f"❌ BLOCARE SPECIALĂ: Issue mare cu progres suspect de mic")
+                print(f"📊 {pages_done} pagini din {total_pages} pare eșec de descărcare!")
+                print(f"🛡️ Probabil eroare tehnică sau limită - NU marchez terminat")
+
+                self._update_partial_issue_progress(
+                    normalized_url, pages_done, total_pages=total_pages, title=title, subtitle=subtitle
+                )
+                return True  # Succes parțial
+
+            # ===== TOATE VERIFICĂRILE AU TRECUT - SAFE SĂ MARCHEZ CA TERMINAT =====
+
+            print(f"✅ TOATE VERIFICĂRILE ULTRA SAFE au trecut pentru {url}")
+            print(f"🎯 Progres: {pages_done}/{total_pages} ({completion_percent:.1f}%)")
+            print(f"🎯 Marchez ca TERMINAT COMPLET")
 
             # PAUZĂ CRITICĂ 1: Așteaptă ca toate fișierele să fie complet scrise pe disk
             print("⏳ SINCRONIZARE: Aștept 30 secunde ca toate fișierele să fie complet salvate pe disk...")
             time.sleep(30)
 
             # FIXED: Marchează ca terminat cu total_pages corect
-            final_total = total_pages if total_pages > 0 else pages_done
-            self.mark_issue_done(url, pages_done, title=title, subtitle=subtitle, total_pages=final_total)
+            self.mark_issue_done(url, pages_done, title=title, subtitle=subtitle, total_pages=total_pages)
             print(f"✅ Issue marcat ca terminat în JSON: {url} ({pages_done} pagini)")
 
             # PAUZĂ CRITICĂ 2: Așteaptă ca JSON să fie salvat complet
@@ -1913,81 +2526,88 @@ class ChromePDFDownloader:
             return False  # Returnez False pentru a continua
 
     def run(self):
-        print("🧪 Încep executarea Chrome PDF Downloader FIXED cu SORTARE CRONOLOGICĂ")
-        print("=" * 60)
+            print("🧪 Încep executarea Chrome PDF Downloader FIXED cu SORTARE CRONOLOGICĂ")
+            print("=" * 60)
 
-        try:
-            if not self.setup_chrome_driver():
-                return False
+            try:
+                if not self.setup_chrome_driver():
+                    return False
 
-            print("🔄 Resetez flag-ul de limită zilnică și verific ferestrele existente...")
-            self.state["daily_limit_hit"] = False
-            self._save_state()
+                print("🔄 Resetez flag-ul de limită zilnică și verific ferestrele existente...")
+                self.state["daily_limit_hit"] = False
+                self._save_state()
 
-            # FIXED: Reconstruiește progresul din fișierele de pe disk
-            self.sync_json_with_disk_files()
+                # FIXED: Reconstruiește progresul din fișierele de pe disk
+                self.sync_json_with_disk_files()
 
-            # CLEANUP dubluri DUPĂ sincronizarea cu disk-ul
-            self.cleanup_duplicate_issues()
+                # CLEANUP dubluri DUPĂ sincronizarea cu disk-ul
+                self.cleanup_duplicate_issues()
 
-            if self.check_daily_limit_in_all_windows(set_flag=False):
-                print("⚠ Am găsit ferestre cu limita deschise din sesiuni anterioare.")
-                print("🔄 Le-am închis și reîncerc procesarea...")
+                # NOUĂ ETAPĂ: Corectează issue-urile marcate greșit ca complete
+                print("\n🔧 ETAPA CORECTARE: Verific issue-urile marcate greșit ca complete")
+                fixes_applied = self.fix_incorrectly_marked_complete_issues()
 
-            # FIXED: ETAPA 0: Procesează MAI ÎNTÂI issue-urile parțiale (PRIORITATE ABSOLUTĂ)
-            print(f"\n🎯 ETAPA 0: PRIORITATE ABSOLUTĂ - Procesez issue-urile parțiale")
-            if self.process_pending_partials_first():
-                print("✅ Issue-urile parțiale au fost procesate sau limita a fost atinsă.")
-                # OPREȘTE aici dacă există parțiale - nu trece la colecții noi
-                if self.get_pending_partial_issues():
-                    print("🔄 Încă mai există issue-uri parțiale - voi continua cu ele următoarea dată")
+                if fixes_applied > 0:
+                    print(f"✅ Corectat {fixes_applied} issue-uri - acestea vor fi reluate")
+
+                if self.check_daily_limit_in_all_windows(set_flag=False):
+                    print("⚠ Am găsit ferestre cu limita deschise din sesiuni anterioare.")
+                    print("🔄 Le-am închis și reîncerc procesarea...")
+
+                # FIXED: ETAPA 0: Procesează MAI ÎNTÂI issue-urile parțiale (PRIORITATE ABSOLUTĂ)
+                print(f"\n🎯 ETAPA 0: PRIORITATE ABSOLUTĂ - Procesez issue-urile parțiale")
+                if self.process_pending_partials_first():
+                    print("✅ Issue-urile parțiale au fost procesate sau limita a fost atinsă.")
+                    # OPREȘTE aici dacă există parțiale - nu trece la colecții noi
+                    if self.get_pending_partial_issues():
+                        print("🔄 Încă mai există issue-uri parțiale - voi continua cu ele următoarea dată")
+                        return True
+
+                if self.remaining_quota() <= 0 or self.state.get("daily_limit_hit", False):
+                    print("⚠ Limita zilnică atinsă după procesarea issue-urilor parțiale.")
                     return True
 
-            if self.remaining_quota() <= 0 or self.state.get("daily_limit_hit", False):
-                print("⚠ Limita zilnică atinsă după procesarea issue-urilor parțiale.")
+                # ETAPA 1: Procesează colecția principală (dacă nu e completă)
+                # FIXED: Verifică întotdeauna dacă colecția principală e completă
+                print(f"\n📚 ETAPA 1: Verific colecția principală: {self.main_collection_url}")
+
+                main_completed = self.run_collection(self.main_collection_url)
+
+                if self.state.get("daily_limit_hit", False):
+                    print("⚠ Limita zilnică atinsă în colecția principală.")
+                    return True
+
+                if main_completed:
+                    print("✅ Colecția principală este completă!")
+                    self.state["main_collection_completed"] = True
+                    self._save_state()
+                else:
+                    print("🔄 Colecția principală nu este completă încă - continuez cu ea.")
+                    self.state["main_collection_completed"] = False  # RESETEAZĂ dacă nu e completă
+                    self._save_state()
+                    return True
+
+                # ETAPA 2: Procesează colecțiile adiționale
+                if self.remaining_quota() > 0 and not self.state.get("daily_limit_hit", False):
+                    print(f"\n📚 ETAPA 2: Procesez colecțiile adiționale")
+                    self.run_additional_collections()
+
+                print("✅ Toate operațiunile au fost inițiate.")
+                self._finalize_session()
                 return True
 
-            # ETAPA 1: Procesează colecția principală (dacă nu e completă)
-            # FIXED: Verifică întotdeauna dacă colecția principală e completă
-            print(f"\n📚 ETAPA 1: Verific colecția principală: {self.main_collection_url}")
-
-            main_completed = self.run_collection(self.main_collection_url)
-
-            if self.state.get("daily_limit_hit", False):
-                print("⚠ Limita zilnică atinsă în colecția principală.")
-                return True
-
-            if main_completed:
-                print("✅ Colecția principală este completă!")
-                self.state["main_collection_completed"] = True
-                self._save_state()
-            else:
-                print("🔄 Colecția principală nu este completă încă - continuez cu ea.")
-                self.state["main_collection_completed"] = False  # RESETEAZĂ dacă nu e completă
-                self._save_state()
-                return True
-
-            # ETAPA 2: Procesează colecțiile adiționale
-            if self.remaining_quota() > 0 and not self.state.get("daily_limit_hit", False):
-                print(f"\n📚 ETAPA 2: Procesez colecțiile adiționale")
-                self.run_additional_collections()
-
-            print("✅ Toate operațiunile au fost inițiate.")
-            self._finalize_session()
-            return True
-
-        except KeyboardInterrupt:
-            print("\n\n⚠ Intervenție manuală: întrerupt.")
-            return False
-        except Exception as e:
-            print(f"\n❌ Eroare neașteptată: {e}")
-            return False
-        finally:
-            if not self.attached_existing and self.driver:
-                try:
-                    self.driver.quit()
-                except Exception:
-                    pass
+            except KeyboardInterrupt:
+                print("\n\n⚠ Intervenție manuală: întrerupt.")
+                return False
+            except Exception as e:
+                print(f"\n❌ Eroare neașteptată: {e}")
+                return False
+            finally:
+                if not self.attached_existing and self.driver:
+                    try:
+                        self.driver.quit()
+                    except Exception:
+                        pass
 
     def _finalize_session(self):
         if self.driver:
@@ -2006,6 +2626,9 @@ def main():
     MAIN FUNCTION CORECTATĂ - FOCUSEAZĂ PE StudiiSiCercetariMecanicaSiAplicata
     Nu mai sare la alte colecții până nu termină cu aceasta complet!
     """
+
+    log_file = setup_logging()  # ADĂUGAT - PRIMA LINIE
+
 
     print("🚀 PORNIRE SCRIPT - ANALIZA INIȚIALĂ")
     print("=" * 70)

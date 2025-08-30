@@ -56,14 +56,23 @@ def setup_logging():
 
 # Colecțiile adiționale (procesate DUPĂ colecția principală din main())
 ADDITIONAL_COLLECTIONS = [
+    "https://adt.arcanum.com/ro/collection/StudiiSiCercetariMecanicaSiAplicata/", # lasi asta obligatoriu
+    "https://adt.arcanum.com/ro/collection/RevistaMatematicaDinTimisoara/",
     "https://adt.arcanum.com/ro/collection/StudiiSiCercetariMatematice/",
     "https://adt.arcanum.com/ro/collection/AnaleleUnivBucuresti_MatematicaMecanicaFizica/",
-    "https://adt.arcanum.com/ro/collection/RevistaMatematicaDinTimisoara/",
     "https://adt.arcanum.com/hu/collection/AMatematikaTanitasa/",
     "https://adt.arcanum.com/hu/collection/AFizikaTanitasa/",
     "https://adt.arcanum.com/hu/collection/AKemiaTanitasa/",
+    "https://adt.arcanum.com/de/collection/MonatshefteFurChemie/",
+    "https://adt.arcanum.com/de/collection/ZeitschriftFurPhysikUndMathematik/",
+    "https://adt.arcanum.com/de/collection/Mathematische/",
+    "https://adt.arcanum.com/de/collection/ZeitschriftFurPhysikUndMathematik/",
     "https://adt.arcanum.com/ro/collection/BuletInstPolitehIasi_1/",
     "https://adt.arcanum.com/ro/collection/Energetica/",
+    "https://adt.arcanum.com/ro/collection/IndustriaConstructiilor/",
+    "https://adt.arcanum.com/ro/collection/RevistaConstructilorMaterialelorDeConstructii/",
+    "https://adt.arcanum.com/ro/collection/ConstructiaDeMasini/",
+    "https://adt.arcanum.com/ro/collection/Electrotehnica/",
     "https://adt.arcanum.com/ro/collection/CulturaFizicaSiSport/",
     "https://adt.arcanum.com/ro/collection/Almanahul_Satelor/",
     "https://adt.arcanum.com/ro/collection/SteauaRomaniei/",
@@ -84,6 +93,7 @@ ADDITIONAL_COLLECTIONS = [
     "https://adt.arcanum.com/ro/collection/Magazin/",
     "https://adt.arcanum.com/ro/collection/TribunaSibiului/",
     "https://adt.arcanum.com/ro/collection/Metalurgia/",
+    "https://adt.arcanum.com/ro/collection/RevistaEconomica1974/",
     "https://adt.arcanum.com/ro/collection/StudiiSiCercetariDeMetalurgie/",
     "https://adt.arcanum.com/ro/collection/BuletinulInstitutuluiPolitehnicBucuresti_ChimieMetalurgie/",
     "https://adt.arcanum.com/ro/collection/RomaniaMuncitoare/",
@@ -100,6 +110,7 @@ ADDITIONAL_COLLECTIONS = [
     "https://adt.arcanum.com/ro/collection/Agrarul/",
     "https://adt.arcanum.com/ro/collection/Radiofonia/",
     "https://adt.arcanum.com/ro/collection/CurierulDeIasi/",
+    "https://adt.arcanum.com/ro/collection/BuletinulUniversitatiiDinBrasov/",
     "https://adt.arcanum.com/ro/collection/CurierulFoaiaIntereselorGenerale/",
     "https://adt.arcanum.com/ro/collection/EconomiaNationala/",
     "https://adt.arcanum.com/ro/collection/Constitutionalul/",
@@ -108,6 +119,7 @@ ADDITIONAL_COLLECTIONS = [
     "https://adt.arcanum.com/ro/collection/ViataRomaneasca/",
     "https://adt.arcanum.com/ro/collection/SteauaRosie/",
     "https://adt.arcanum.com/ro/collection/Almanah_ScinteiaTineretului/",
+    "https://adt.arcanum.com/ro/collection/MuzeulDigitalAlRomanuluiRomanesc/",
     "https://adt.arcanum.com/ro/collection/EvenimentulZilei/",
     "https://adt.arcanum.com/ro/collection/CurierulFoaiaIntereselorGenerale/",
     "https://adt.arcanum.com/hu/collection/IdegenNyelvekTanitasa/",
@@ -116,7 +128,10 @@ ADDITIONAL_COLLECTIONS = [
     "https://adt.arcanum.com/hu/collection/ErtekezesekEmlekezesek/",
     "https://adt.arcanum.com/hu/collection/Books_SorozatonKivul/",
     "https://adt.arcanum.com/hu/collection/Books_22_OrvoslasTermeszetrajz/",
-    "https://adt.arcanum.com/hu/collection/DomolkiKonyvek/"
+    "https://adt.arcanum.com/hu/collection/DomolkiKonyvek/",
+    "https://adt.arcanum.com/de/collection/LiterarischeBerichteUngarn/",
+    "https://adt.arcanum.com/sk/collection/SlovenskyZakonnik/",
+    "https://adt.arcanum.com/sk/collection/Theologos/"
 ]
 
 # Skip URLs statice (hardcoded)
@@ -124,7 +139,7 @@ STATIC_SKIP_URLS = {
     "https://adt.arcanum.com/ro/view/Convietuirea_1997-1998"
 }
 
-DAILY_LIMIT = 105
+DAILY_LIMIT = 1050
 STATE_FILENAME = "state.json"
 SKIP_URLS_FILENAME = "skip_urls.json"
 
@@ -1319,6 +1334,7 @@ class ChromePDFDownloader:
             return False
 
     def check_daily_limit_in_all_windows(self, set_flag=True):
+        # return False  # Add this line at the top to disable detection
         """Verifică mesajul de limită zilnică în toate ferestrele deschise"""
         current_window = self.driver.current_window_handle
         limit_reached = False

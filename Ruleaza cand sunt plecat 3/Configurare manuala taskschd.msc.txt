@@ -16,9 +16,10 @@ Add arguments:
 
 Program/script:
 
-"C:\Program Files (x86)\PyScripter\PyScripter.exe"
+"e:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat 3\run_script.bat-(porneste-pyscripter).bat"
 
 Add arguments (optional):
+
 "E:\Carte\BB\17 - Site Leadership\alte\Ionel Balauta\Aryeht\Task 1 - Traduce tot site-ul\Doar Google Web\Andreea\Meditatii\2023\++Arcanum Download + Chrome\Ruleaza cand sunt plecat 3\Claude-FINAL 2 - BUN Sterge pdf pe D.py"
 
 Sau pornesti: run_script.bat-(porneste-pyscripter).bat" 

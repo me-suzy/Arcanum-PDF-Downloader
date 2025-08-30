@@ -1,0 +1,4 @@
+2025-08-22 20:45:59 - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000202E62F7CB0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/31a3c89140857e71edab428d7687413c/window/handles
+2025-08-22 20:48:25 - goodbye ('127.0.0.1', 55299)
+2025-08-22 20:48:25 - listener closed
+2025-08-22 20:48:25 - server has terminated

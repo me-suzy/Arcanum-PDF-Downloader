@@ -1,14 +1,878 @@
 {
-  "date": "2025-08-11",
-  "count": 9,
+  "date": "2025-08-26",
+  "count": 105,
   "downloaded_issues": [
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1936-1937",
+      "title": "RevistaMatematicaDinTimisoara 1936 1937",
+      "subtitle": "1936-03-15 / nr. 1",
+      "pages": 0,
+      "completed_at": "",
+      "last_successful_segment_end": 208,
+      "total_pages": 208
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1948-1949",
+      "title": "Revista Matematicǎ din Timișoara, 1948-1949 (Anul 28, nr. 1-12)",
+      "subtitle": "1948-03-01 / nr. 1",
+      "pages": 252,
+      "completed_at": "2025-08-25T12:25:10",
+      "last_successful_segment_end": 252,
+      "total_pages": 252
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1947-1948",
+      "title": "Revista Matematicǎ din Timișoara, 1947-1948 (Anul 27, nr. 2-12)",
+      "subtitle": "1947-04-01 / nr. 2",
+      "pages": 196,
+      "completed_at": "2025-08-25T12:22:25",
+      "last_successful_segment_end": 196,
+      "total_pages": 196
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1946-1947",
+      "title": "Revista Matematicǎ din Timișoara, 1946-1947 (Anul 26, nr. 1-10)",
+      "subtitle": "1946-03-01 / nr. 1",
+      "pages": 160,
+      "completed_at": "2025-08-25T12:20:08",
+      "last_successful_segment_end": 160,
+      "total_pages": 160
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1945-1946",
+      "title": "Revista Matematicǎ din Timișoara, 1945-1946 (Anul 25, nr. 1-12)",
+      "subtitle": "1945-03-01 / nr. 1",
+      "pages": 200,
+      "completed_at": "2025-08-25T12:17:49",
+      "last_successful_segment_end": 200,
+      "total_pages": 200
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1944-1945",
+      "title": "Revista Matematicǎ din Timișoara, 1944-1945 (Anul 24, nr. 1-12)",
+      "subtitle": "1944-03-01 / nr. 1",
+      "pages": 200,
+      "completed_at": "2025-08-25T12:15:14",
+      "last_successful_segment_end": 200,
+      "total_pages": 200
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1943-1944",
+      "title": "Revista Matematicǎ din Timișoara, 1943-1944 (Anul 23, nr. 1-12)",
+      "subtitle": "1943-03-01 / nr. 1",
+      "pages": 200,
+      "completed_at": "2025-08-25T12:12:41",
+      "last_successful_segment_end": 200,
+      "total_pages": 200
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1942-1943",
+      "title": "Revista Matematicǎ din Timișoara, 1942-1943 (Anul 22, nr. 1-12)",
+      "subtitle": "1942-03-01 / nr. 1",
+      "pages": 204,
+      "completed_at": "2025-08-25T12:10:06",
+      "last_successful_segment_end": 204,
+      "total_pages": 204
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1941-1942",
+      "title": "Revista Matematicǎ din Timișoara, 1941-1942 (Anul 21, nr. 1-12)",
+      "subtitle": "1941-03-01 / nr. 1",
+      "pages": 208,
+      "completed_at": "2025-08-25T12:07:35",
+      "last_successful_segment_end": 208,
+      "total_pages": 208
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1940-1941",
+      "title": "Revista Matematicǎ din Timișoara, 1940-1941 (Anul 20, nr. 1-12)",
+      "subtitle": "1940-03-01 / nr. 1",
+      "pages": 216,
+      "completed_at": "2025-08-25T12:02:43",
+      "last_successful_segment_end": 216,
+      "total_pages": 216
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1939-1940",
+      "title": "Revista Matematicǎ din Timișoara, 1939-1940 (Anul 19, nr. 1-12)",
+      "subtitle": "1939-03-15 / nr. 1",
+      "pages": 244,
+      "completed_at": "2025-08-25T12:00:05",
+      "last_successful_segment_end": 244,
+      "total_pages": 244
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1938-1939",
+      "title": "Revista Matematicǎ din Timișoara, 1938-1939 (Anul 18, nr. 1-12)",
+      "subtitle": "1938-03-15 / nr. 1",
+      "pages": 208,
+      "completed_at": "2025-08-25T11:57:32",
+      "last_successful_segment_end": 208,
+      "total_pages": 208
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1937-1938",
+      "title": "Revista Matematicǎ din Timișoara, 1937-1938 (Anul 17, nr. 1-12)",
+      "subtitle": "1937-03-15 / nr. 1",
+      "pages": 204,
+      "completed_at": "2025-08-25T11:54:51",
+      "last_successful_segment_end": 204,
+      "total_pages": 204
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1935-1936",
+      "title": "Revista Matematicǎ din Timișoara, 1935-1936 (Anul 15, nr. 1-12)",
+      "subtitle": "1935-03-15 / nr. 1",
+      "pages": 204,
+      "completed_at": "2025-08-25T11:46:58",
+      "last_successful_segment_end": 204,
+      "total_pages": 204
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1933-1934",
+      "title": "Revista Matematicǎ din Timișoara, 1933-1934 (Anul 13, nr. 1-12)",
+      "subtitle": "1933-03-15 / nr. 1",
+      "pages": 200,
+      "completed_at": "2025-08-25T11:44:26",
+      "last_successful_segment_end": 200,
+      "total_pages": 200
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1932-1933",
+      "title": "Revista Matematicǎ din Timișoara, 1932-1933 (Anul 12, nr. 1-12)",
+      "subtitle": "1932-03-15 / nr. 1",
+      "pages": 196,
+      "completed_at": "2025-08-25T11:41:53",
+      "last_successful_segment_end": 196,
+      "total_pages": 196
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1931-1932",
+      "title": "Revista Matematicǎ din Timișoara, 1931-1932 (Anul 11, nr. 1-12)",
+      "subtitle": "1931-03-15 / nr. 1",
+      "pages": 196,
+      "completed_at": "2025-08-25T10:30:10",
+      "last_successful_segment_end": 196,
+      "total_pages": 196
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1930-1931",
+      "title": "Revista Matematicǎ din Timișoara, 1930-1931 (Anul 10, nr. 1-12)",
+      "subtitle": "1930-03-15 / nr. 1",
+      "pages": 196,
+      "completed_at": "2025-08-24T08:47:54",
+      "last_successful_segment_end": 196,
+      "total_pages": 196
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1929-1930",
+      "title": "Revista Matematicǎ din Timișoara, 1929-1930 (Anul 9, nr. 1-12)",
+      "subtitle": "1929-03-15 / nr. 1",
+      "pages": 202,
+      "completed_at": "2025-08-24T08:45:34",
+      "last_successful_segment_end": 202,
+      "total_pages": 202
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1928-1929",
+      "title": "Revista Matematicǎ din Timișoara, 1928-1929 (Anul 8, nr. 1-12)",
+      "subtitle": "1928-03-15 / nr. 1",
+      "pages": 204,
+      "completed_at": "2025-08-24T08:42:59",
+      "last_successful_segment_end": 204,
+      "total_pages": 204
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1927-1928",
+      "title": "Revista Matematicǎ din Timișoara, 1927-1928 (Anul 7, nr. 1-12)",
+      "subtitle": "1927-03-15 / nr. 1",
+      "pages": 224,
+      "completed_at": "2025-08-24T08:40:25",
+      "last_successful_segment_end": 224,
+      "total_pages": 224
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1926-1927",
+      "title": "Revista Matematicǎ din Timișoara, 1926-1927 (Anul 6, nr. 1-12)",
+      "subtitle": "1926-03-15 / nr. 1",
+      "pages": 206,
+      "completed_at": "2025-08-24T08:37:50",
+      "last_successful_segment_end": 206,
+      "total_pages": 206
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1925-1926",
+      "title": "Revista Matematicǎ din Timișoara, 1925-1926 (Anul 5, nr. 1-12)",
+      "subtitle": "1925-03-15 / nr. 1",
+      "pages": 208,
+      "completed_at": "2025-08-24T08:35:16",
+      "last_successful_segment_end": 208,
+      "total_pages": 208
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1924-1925",
+      "title": "Revista Matematicǎ din Timișoara, 1924-1925 (Anul 4, nr. 1-12)",
+      "subtitle": "1924-03-15 / nr. 1",
+      "pages": 204,
+      "completed_at": "2025-08-24T08:32:44",
+      "last_successful_segment_end": 204,
+      "total_pages": 204
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1923-1924",
+      "title": "Revista Matematicǎ din Timișoara, 1923-1924 (Anul 3, nr. 1-12)",
+      "subtitle": "1923-03-15 / nr. 1",
+      "pages": 196,
+      "completed_at": "2025-08-24T08:30:09",
+      "last_successful_segment_end": 196,
+      "total_pages": 196
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1922-1923",
+      "title": "Revista Matematicǎ din Timișoara, 1922-1923 (Anul 2, nr. 1-12)",
+      "subtitle": "1922-03-15 / nr. 1",
+      "pages": 194,
+      "completed_at": "2025-08-24T08:27:50",
+      "last_successful_segment_end": 194,
+      "total_pages": 194
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AnaleleUnivBucuresti_MatematicaMecanicaFizica_1983",
+      "title": "Analele Universităţii Bucureşti Matematică, 1983 (Anul 32)",
+      "subtitle": "",
+      "pages": 108,
+      "completed_at": "2025-08-24T08:25:40",
+      "last_successful_segment_end": 108,
+      "total_pages": 108
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AnaleleUnivBucuresti_MatematicaMecanicaFizica_1980",
+      "title": "Analele Universităţii Bucureşti Matematică, 1980 (Anul 29)",
+      "subtitle": "",
+      "pages": 120,
+      "completed_at": "2025-08-24T08:22:39",
+      "last_successful_segment_end": 120,
+      "total_pages": 120
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AnaleleUnivBucuresti_MatematicaMecanicaFizica_1978",
+      "title": "Analele Universităţii Bucureşti Matematică, 1978 (Anul 27)",
+      "subtitle": "",
+      "pages": 132,
+      "completed_at": "2025-08-24T08:20:38",
+      "last_successful_segment_end": 132,
+      "total_pages": 132
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AnaleleUnivBucuresti_MatematicaMecanicaFizica_1977",
+      "title": "Analele Universităţii Bucureşti Matematică, 1977 (Anul 26)",
+      "subtitle": "",
+      "pages": 156,
+      "completed_at": "2025-08-24T08:18:36",
+      "last_successful_segment_end": 156,
+      "total_pages": 156
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AnaleleUnivBucuresti_MatematicaMecanicaFizica_1973",
+      "title": "Analele Universităţii Bucureşti Matematică-Mecanică , 1973 (Anul 22, nr. 1-2)",
+      "subtitle": "1973 / nr. 1",
+      "pages": 324,
+      "completed_at": "2025-08-24T08:16:12",
+      "last_successful_segment_end": 324,
+      "total_pages": 324
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AnaleleUnivBucuresti_MatematicaMecanicaFizica_1972",
+      "title": "Analele Universităţii Bucureşti Matematică-Mecanică , 1972 (Anul 21, nr. 1-2)",
+      "subtitle": "1972 / nr. 1",
+      "pages": 302,
+      "completed_at": "2025-08-24T08:13:10",
+      "last_successful_segment_end": 302,
+      "total_pages": 302
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AnaleleUnivBucuresti_MatematicaMecanicaFizica_1970",
+      "title": "Analele Universităţii Bucureşti Matematică-Mecanică , 1970 (Anul 19, nr. 1-2)",
+      "subtitle": "1970 / nr. 1",
+      "pages": 338,
+      "completed_at": "2025-08-24T08:10:07",
+      "last_successful_segment_end": 338,
+      "total_pages": 338
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AnaleleUnivBucuresti_MatematicaMecanicaFizica_1969",
+      "title": "Analele Universităţii Bucureşti Matematică-Mecanică , 1969 (Anul 18, nr. 1-2)",
+      "subtitle": "1969 / nr. 1",
+      "pages": 298,
+      "completed_at": "2025-08-24T08:07:05",
+      "last_successful_segment_end": 298,
+      "total_pages": 298
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AnaleleUnivBucuresti_MatematicaMecanicaFizica_1965",
+      "title": "Analele Universităţii Bucureşti Matematică-Mecanică , 1965 (Anul 14, nr. 1-2)",
+      "subtitle": "1965 / nr. 1",
+      "pages": 308,
+      "completed_at": "2025-08-24T08:04:18",
+      "last_successful_segment_end": 308,
+      "total_pages": 308
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AnaleleUnivBucuresti_MatematicaMecanicaFizica_1964",
+      "title": "Analele Universităţii Bucureşti Matematică-Mecanică , 1964 (Anul 13, nr. 1-2)",
+      "subtitle": "1964 / nr. 1",
+      "pages": 364,
+      "completed_at": "2025-08-24T08:01:15",
+      "last_successful_segment_end": 364,
+      "total_pages": 364
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AnaleleUnivBucuresti_MatematicaMecanicaFizica_1962",
+      "title": "Analele Universităţii Bucureşti Matematică-Fizică, 1962 (Anul 11)",
+      "subtitle": "",
+      "pages": 356,
+      "completed_at": "2025-08-24T07:57:58",
+      "last_successful_segment_end": 356,
+      "total_pages": 356
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1960",
+      "title": "Studii şi Cercetări de Matematică, 1960 (Anul 11, nr. 1-2)",
+      "subtitle": "1960 / nr. 1",
+      "pages": 536,
+      "completed_at": "2025-08-23T09:53:21",
+      "last_successful_segment_end": 536,
+      "total_pages": 536
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1957",
+      "title": "Studii şi Cercetări de Matematică, 1957 (Anul 8, nr. 1-4)",
+      "subtitle": "1957-01-01 / nr. 1-2",
+      "pages": 514,
+      "completed_at": "2025-08-23T09:49:10",
+      "last_successful_segment_end": 514,
+      "total_pages": 514
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1956",
+      "title": "Studii şi Cercetări de Matematică, 1956 (Anul 7, nr. 1-4)",
+      "subtitle": "1956-01-01 / nr. 1-2",
+      "pages": 426,
+      "completed_at": "2025-08-23T09:45:07",
+      "last_successful_segment_end": 426,
+      "total_pages": 426
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1955",
+      "title": "Studii şi Cercetări de Matematică, 1955 (Anul 6, nr. 1-4)",
+      "subtitle": "1955-01-01 / nr. 1-2",
+      "pages": 682,
+      "completed_at": "2025-08-23T09:41:14",
+      "last_successful_segment_end": 682,
+      "total_pages": 682
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1954",
+      "title": "Studii şi Cercetări de Matematică, 1954 (Anul 5, nr. 1-4)",
+      "subtitle": "1954-01-01 / nr. 1-2",
+      "pages": 430,
+      "completed_at": "2025-08-23T09:36:37",
+      "last_successful_segment_end": 430,
+      "total_pages": 430
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1953",
+      "title": "Studii şi Cercetări de Matematică, 1953 (Anul 4, nr. 1-4)",
+      "subtitle": "1953-01-01 / nr. 1-2",
+      "pages": 534,
+      "completed_at": "2025-08-23T09:32:56",
+      "last_successful_segment_end": 534,
+      "total_pages": 534
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMatematice_1952",
+      "title": "Studii şi Cercetări de Matematică, 1952 (Anul 3, nr. 1-4)",
+      "subtitle": "1952-01-01 / nr. 1-2",
+      "pages": 566,
+      "completed_at": "2025-08-23T09:28:47",
+      "last_successful_segment_end": 566,
+      "total_pages": 566
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AlmanahAteneu_1988",
+      "title": "Almanah Ateneu, 1988",
+      "subtitle": "",
+      "pages": 356,
+      "completed_at": "2025-08-23T09:24:43",
+      "last_successful_segment_end": 356,
+      "total_pages": 356
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AlmanahAteneu_1987",
+      "title": "Almanah Ateneu, 1987",
+      "subtitle": "",
+      "pages": 356,
+      "completed_at": "2025-08-23T09:21:23",
+      "last_successful_segment_end": 356,
+      "total_pages": 356
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AlmanahAteneu_1986",
+      "title": "Almanah Ateneu, 1986",
+      "subtitle": "",
+      "pages": 365,
+      "completed_at": "2025-08-23T09:18:08",
+      "last_successful_segment_end": 365,
+      "total_pages": 365
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/BuletinulStiintificTechnicInstitutuluiPolitehnicTimisoara_MatematicaFizicaMecanica_1985",
+      "title": "Buletinul ştiinţific şi tehnic al Institutului Politehnic \"Traian Vuia\" Timişoara - Matematică-Fizică, 1985",
+      "subtitle": "",
+      "pages": 130,
+      "completed_at": "2025-08-23T09:15:06",
+      "last_successful_segment_end": 130,
+      "total_pages": 130
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/BuletinulStiintificTechnicInstitutuluiPolitehnicTimisoara_MatematicaFizicaMecanica_1982",
+      "title": "Buletinul ştiinţific şi tehnic al Institutului Politehnic \"Traian Vuia\" Timişoara - Matematică-Fizică, 1982",
+      "subtitle": "",
+      "pages": 92,
+      "completed_at": "2025-08-23T09:11:58",
+      "last_successful_segment_end": 92,
+      "total_pages": 92
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/BuletinulStiintificTechnicInstitutuluiPolitehnicTimisoara_MatematicaFizicaMecanica_1981",
+      "title": "Buletinul ştiinţific şi tehnic al Institutului Politehnic \"Traian Vuia\" Timişoara - Matematică-Fizică, 1981 (Anul 26, nr. 1-2)",
+      "subtitle": "1981-01-01 / nr. 1",
+      "pages": 180,
+      "completed_at": "2025-08-23T09:10:02",
+      "last_successful_segment_end": 180,
+      "total_pages": 180
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/BuletinulStiintificTechnicInstitutuluiPolitehnicTimisoara_MatematicaFizicaMecanica_1980",
+      "title": "Buletinul ştiinţific şi tehnic al Institutului Politehnic \"Traian Vuia\" Timişoara - Matematică-Fizică, 1980 (Anul 25, nr. 1-2)",
+      "subtitle": "1980-01-01 / nr. 1",
+      "pages": 156,
+      "completed_at": "2025-08-22T19:49:40",
+      "last_successful_segment_end": 156,
+      "total_pages": 156
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/BuletinulStiintificTechnicInstitutuluiPolitehnicTimisoara_MatematicaFizicaMecanica_1979",
+      "title": "Buletinul ştiinţific şi tehnic al Institutului Politehnic \"Traian Vuia\" Timişoara - Matematică-Fizică, 1979 (Anul 24, nr. 1-2)",
+      "subtitle": "1979-01-01 / nr. 1",
+      "pages": 144,
+      "completed_at": "2025-08-22T19:47:27",
+      "last_successful_segment_end": 144,
+      "total_pages": 144
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/BuletinulStiintificTechnicInstitutuluiPolitehnicTimisoara_MatematicaFizicaMecanica_1978",
+      "title": "Buletinul ştiinţific şi tehnic al Institutului Politehnic \"Traian Vuia\" Timişoara - Matematică-Fizică, 1978 (Anul 23, nr. 1-2)",
+      "subtitle": "1978-01-01 / nr. 1",
+      "pages": 128,
+      "completed_at": "2025-08-22T19:45:27",
+      "last_successful_segment_end": 128,
+      "total_pages": 128
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/BuletinulStiintificTechnicInstitutuluiPolitehnicTimisoara_MatematicaFizicaMecanica_1974",
+      "title": "Buletinul ştiinţific şi tehnic al Institutului Politehnic \"Traian Vuia\" Timişoara - Matematică-Fizică-Mecanică Teoretică şi Aplicată, 1974 (Anul 19, nr. 1-2)",
+      "subtitle": "1974-01-01 / nr. 1",
+      "pages": 200,
+      "completed_at": "2025-08-22T19:43:23",
+      "last_successful_segment_end": 200,
+      "total_pages": 200
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/BuletinulStiintificTechnicInstitutuluiPolitehnicTimisoara_MatematicaFizicaMecanica_1972",
+      "title": "Buletinul ştiinţific şi tehnic al Institutului Politehnic \"Traian Vuia\" Timişoara - Matematică-Fizică-Mecanică Teoretică şi Aplicată, 1972 (Anul 17, nr. 1-2)",
+      "subtitle": "1972-01-01 / nr. 1",
+      "pages": 176,
+      "completed_at": "2025-08-22T19:40:55",
+      "last_successful_segment_end": 176,
+      "total_pages": 176
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/BuletinulStiintificTechnicInstitutuluiPolitehnicTimisoara_MatematicaFizicaMecanica_1971",
+      "title": "Buletinul ştiinţific şi tehnic al Institutului Politehnic \"Traian Vuia\" Timişoara - Matematică-Fizică-Mecanică Teoretică şi Aplicată, 1971 (Anul 16, nr. 1-2)",
+      "subtitle": "1971-01-01 / nr. 1",
+      "pages": 256,
+      "completed_at": "2025-08-22T19:38:31",
+      "last_successful_segment_end": 256,
+      "total_pages": 256
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/BuletinulStiintificTechnicInstitutuluiPolitehnicTimisoara_MatematicaFizicaMecanica_1970",
+      "title": "Buletinul ştiinţific şi tehnic al Institutului Politehnic Timişoara - Matematică-Fizică-Mecanică Teoretică şi Aplicată, 1970 (Anul 15, nr. 1-2)",
+      "subtitle": "1970-01-01 / nr. 1",
+      "pages": 208,
+      "completed_at": "2025-08-22T19:35:46",
+      "last_successful_segment_end": 208,
+      "total_pages": 208
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/AnaleleUnivBucuresti_GeologieGeografie_1964",
+      "title": "Analele Universităţii Bucureşti Geologie-Geografie , 1964 (Anul 13, nr. 1-2)",
+      "subtitle": "1964 / nr. 1",
+      "pages": 440,
+      "completed_at": "2025-08-22T19:33:10",
+      "last_successful_segment_end": 440,
+      "total_pages": 440
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/MetrologiaAplicata_1957",
+      "title": "Metrologia Aplicată, 1957 (Anul 4, nr. 1-9)",
+      "subtitle": "1957-01-01 / nr. 1",
+      "pages": 468,
+      "completed_at": "2025-08-22T19:29:28",
+      "last_successful_segment_end": 468,
+      "total_pages": 468
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/MetrologiaAplicata_1956",
+      "title": "Metrologia Aplicată, 1956 (Anul 3, nr. 1-12)",
+      "subtitle": "1956-01-01 / nr. 1",
+      "pages": 600,
+      "completed_at": "2025-08-22T19:24:30",
+      "last_successful_segment_end": 600,
+      "total_pages": 600
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/MetrologiaAplicata_1955",
+      "title": "Metrologia Aplicată, 1955 (Anul 2, nr. 1-12)",
+      "subtitle": "1955-01-01 / nr. 1",
+      "pages": 604,
+      "completed_at": "2025-08-22T19:19:48",
+      "last_successful_segment_end": 604,
+      "total_pages": 604
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/MetrologiaAplicata_1954",
+      "title": "Metrologia Aplicată, 1954 (Anul 1, nr. 1-5)",
+      "subtitle": "1954-08-01 / nr. 1",
+      "pages": 262,
+      "completed_at": "2025-08-22T19:15:33",
+      "last_successful_segment_end": 262,
+      "total_pages": 262
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Metrologie_2001",
+      "title": "Metrologie, 2001 (Anul 48, nr. 1-4)",
+      "subtitle": "2001 / nr. 1",
+      "pages": 140,
+      "completed_at": "2025-08-22T19:12:54",
+      "last_successful_segment_end": 140,
+      "total_pages": 140
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Metrologie_2000",
+      "title": "Metrologie, 2000 (Anul 47, nr. 1-4)",
+      "subtitle": "2000 / nr. 1",
+      "pages": 144,
+      "completed_at": "2025-08-22T19:10:53",
+      "last_successful_segment_end": 144,
+      "total_pages": 144
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Metrologie_1999",
+      "title": "Metrologie, 1999 (Anul 46, nr. 1-3)",
+      "subtitle": "1999 / nr. 1",
+      "pages": 110,
+      "completed_at": "2025-08-22T19:08:52",
+      "last_successful_segment_end": 110,
+      "total_pages": 110
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Metrologie_1997",
+      "title": "Metrologie, 1997 (Anul 44, nr. 1-4)",
+      "subtitle": "1997 / nr. 1",
+      "pages": 144,
+      "completed_at": "2025-08-22T19:06:51",
+      "last_successful_segment_end": 144,
+      "total_pages": 144
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Metrologie_1996",
+      "title": "Metrologie, 1996 (Anul 43, nr. 1-4)",
+      "subtitle": "1996 / nr. 1",
+      "pages": 140,
+      "completed_at": "2025-08-22T19:04:49",
+      "last_successful_segment_end": 140,
+      "total_pages": 140
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Metrologie_1995",
+      "title": "Metrologie, 1995 (Anul 42, nr. 1-4)",
+      "subtitle": "1995 / nr. 1",
+      "pages": 184,
+      "completed_at": "2025-08-22T19:02:43",
+      "last_successful_segment_end": 184,
+      "total_pages": 184
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Metrologie_1994",
+      "title": "Metrologie, 1994 (Anul 41, nr. 1-4)",
+      "subtitle": "1994 / nr. 1",
+      "pages": 160,
+      "completed_at": "2025-08-22T19:00:23",
+      "last_successful_segment_end": 160,
+      "total_pages": 160
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Metrologie_1993",
+      "title": "Metrologie, 1993 (Anul 40, nr. 1-4)",
+      "subtitle": "1993 / nr. 1",
+      "pages": 176,
+      "completed_at": "2025-08-22T18:58:06",
+      "last_successful_segment_end": 176,
+      "total_pages": 176
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Metrologie_1992",
+      "title": "Metrologie, 1992 (Anul 39, nr. 1-4)",
+      "subtitle": "1992 / nr. 1",
+      "pages": 144,
+      "completed_at": "2025-08-22T18:55:50",
+      "last_successful_segment_end": 144,
+      "total_pages": 144
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/Metrologie_1991",
+      "title": "Metrologie, 1991 (Anul 38, nr. 5-6)",
+      "subtitle": "1991 / nr. 5-6",
+      "pages": 44,
+      "completed_at": "2025-08-15T09:04:04",
+      "last_successful_segment_end": 44,
+      "total_pages": 44
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/CalitateFiabilitat_1990",
+      "title": "Calitate, Fiabilitate, Metrologie, 1990 (Anul 37, nr. 1-12)",
+      "subtitle": "1990-01-01 / nr. 1",
+      "pages": 444,
+      "completed_at": "2025-08-15T09:02:02",
+      "last_successful_segment_end": 444,
+      "total_pages": 444
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/CalitateFiabilitat_1989",
+      "title": "Calitate, Fiabilitate, Metrologie, 1989 (Anul 36, nr. 1)",
+      "subtitle": "1989 / nr. 1",
+      "pages": 52,
+      "completed_at": "2025-08-15T08:58:50",
+      "last_successful_segment_end": 52,
+      "total_pages": 52
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1992",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1992 (Anul 51, nr. 1-2)",
+      "subtitle": "1992-01-01 / nr. 1",
+      "pages": 224,
+      "completed_at": "2025-08-15T08:53:42",
+      "last_successful_segment_end": 224,
+      "total_pages": 224
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1991",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1991 (Anul 50, nr. 1-6)",
+      "subtitle": "1991-01-01 / nr. 1-2",
+      "pages": 466,
+      "completed_at": "2025-08-15T08:50:57",
+      "last_successful_segment_end": 466,
+      "total_pages": 466
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1990",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1990 (Anul 49, nr. 1-6)",
+      "subtitle": "1990-01-01 / nr. 1",
+      "pages": 540,
+      "completed_at": "2025-08-15T08:46:59",
+      "last_successful_segment_end": 540,
+      "total_pages": 540
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1989",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1989 (Anul 48, nr. 1-6)",
+      "subtitle": "1989-01-01 / nr. 1",
+      "pages": 608,
+      "completed_at": "2025-08-15T08:42:46",
+      "last_successful_segment_end": 608,
+      "total_pages": 608
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1988",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1988 (Anul 47, nr. 1-6)",
+      "subtitle": "1988-01-01 / nr. 1",
+      "pages": 637,
+      "completed_at": "2025-08-15T08:38:14",
+      "last_successful_segment_end": 637,
+      "total_pages": 637
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1987",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1987 (Anul 46, nr. 1-6)",
+      "subtitle": "1987-01-01 / nr. 1",
+      "pages": 584,
+      "completed_at": "2025-08-15T08:33:41",
+      "last_successful_segment_end": 584,
+      "total_pages": 584
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1986",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1986 (Anul 45, nr. 1-6)",
+      "subtitle": "1986-01-01 / nr. 1",
+      "pages": 610,
+      "completed_at": "2025-08-15T08:29:19",
+      "last_successful_segment_end": 610,
+      "total_pages": 610
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1985",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1985 (Anul 44, nr. 1-6)",
+      "subtitle": "1985-01-01 / nr. 1",
+      "pages": 546,
+      "completed_at": "2025-08-15T08:24:49",
+      "last_successful_segment_end": 546,
+      "total_pages": 546
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1984",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1984 (Anul 43, nr. 1-6)",
+      "subtitle": "1984-01-01 / nr. 1",
+      "pages": 508,
+      "completed_at": "2025-08-15T08:06:46",
+      "last_successful_segment_end": 508,
+      "total_pages": 508
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1983",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1983 (Anul 42, nr. 1-6)",
+      "subtitle": "1983-01-01 / nr. 1",
+      "pages": 634,
+      "completed_at": "2025-08-14T08:56:09",
+      "last_successful_segment_end": 634,
+      "total_pages": 634
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1982",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1982 (Anul 41, nr. 1-6)",
+      "subtitle": "1982-01-01 / nr. 1",
+      "pages": 744,
+      "completed_at": "2025-08-14T08:51:07",
+      "last_successful_segment_end": 744,
+      "total_pages": 744
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1981",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1981 (Anul 40, nr. 1-6)",
+      "subtitle": "1981-01-01 / nr. 1",
+      "pages": 917,
+      "completed_at": "2025-08-14T08:45:29",
+      "last_successful_segment_end": 917,
+      "total_pages": 917
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1980",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1980 (Anul 39, nr. 1-6)",
+      "subtitle": "1980-01-01 / nr. 1",
+      "pages": 954,
+      "completed_at": "2025-08-14T08:38:50",
+      "last_successful_segment_end": 954,
+      "total_pages": 954
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1979",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1979 (Anul 38, nr. 1-6)",
+      "subtitle": "1979-01-01 / nr. 1",
+      "pages": 972,
+      "completed_at": "2025-08-14T08:32:01",
+      "last_successful_segment_end": 972,
+      "total_pages": 972
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1978",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1978 (Anul 37, nr. 1-3)",
+      "subtitle": "1978-01-01 / nr. 1",
+      "pages": 532,
+      "completed_at": "2025-08-14T08:25:53",
+      "last_successful_segment_end": 532,
+      "total_pages": 532
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1977",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1977 (Anul 36, nr. 1-6)",
+      "subtitle": "1977-01-01 / nr. 1",
+      "pages": 940,
+      "completed_at": "2025-08-13T09:48:06",
+      "last_successful_segment_end": 940,
+      "total_pages": 940
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1976",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1976 (Anul 35, nr. 1-4)",
+      "subtitle": "1976-01-01 / nr. 1",
+      "pages": 644,
+      "completed_at": "2025-08-13T09:39:48",
+      "last_successful_segment_end": 644,
+      "total_pages": 644
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1975",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1975 (Anul 34, nr. 1-4)",
+      "subtitle": "1975 / nr. 1",
+      "pages": 648,
+      "completed_at": "2025-08-13T09:33:35",
+      "last_successful_segment_end": 648,
+      "total_pages": 648
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1974",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1974 (Anul 33, nr. 1-5)",
+      "subtitle": "1974 / nr. 1",
+      "pages": 994,
+      "completed_at": "2025-08-13T08:42:13",
+      "last_successful_segment_end": 994,
+      "total_pages": 994
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1973",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1973 (Anul 32, nr. 1-4)",
+      "subtitle": "1973 / nr. 1",
+      "pages": 916,
+      "completed_at": "2025-08-13T08:31:00",
+      "last_successful_segment_end": 916,
+      "total_pages": 916
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1971",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1971 (Anul 30, nr. 1-6)",
+      "subtitle": "1971 / nr. 1",
+      "pages": 1528,
+      "completed_at": "2025-08-12T10:48:07",
+      "last_successful_segment_end": 1528,
+      "total_pages": 1528
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1970",
+      "title": "Studii și Cercetări de Mecanică Aplicată, 1970 (Anul 29, nr. 1-6)",
+      "subtitle": "1970 / nr. 1",
+      "pages": 1270,
+      "completed_at": "2025-08-12T09:52:12",
+      "last_successful_segment_end": 1270,
+      "total_pages": 1270
+    },
     {
       "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1969",
       "title": "Studii și Cercetări de Mecanică Aplicată, 1969 (Anul 28, nr. 1-6)",
       "subtitle": "1969 / nr. 1",
-      "pages": 0,
-      "completed_at": "",
-      "last_successful_segment_end": 599,
+      "pages": 1648,
+      "completed_at": "2025-08-12T09:06:41",
+      "last_successful_segment_end": 1648,
       "total_pages": 1648
     },
     {
@@ -91,72 +955,79 @@
       "completed_at": "2025-08-09T10:56:45",
       "last_successful_segment_end": 1666,
       "total_pages": 1666
-    }
+    },
   ],
-  "pages_downloaded": 12329,
+  "pages_downloaded": 60080,
   "recent_links": [
     {
-      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1968",
-      "title": "Studii și Cercetări de Mecanică Aplicată, 1968 (Anul 27, nr. 1-6)",
-      "subtitle": "1968 / nr. 1",
-      "pages": 1420,
-      "timestamp": "2025-08-11T11:17:54"
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1948-1949",
+      "title": "Revista Matematicǎ din Timișoara, 1948-1949 (Anul 28, nr. 1-12)",
+      "subtitle": "1948-03-01 / nr. 1",
+      "pages": 252,
+      "timestamp": "2025-08-25T12:25:10"
     },
     {
-      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1967",
-      "title": "Studii și Cercetări de Mecanică Aplicată, 1967 (Tomul 24-26, nr. 1-6)",
-      "subtitle": "1967 / nr. 1",
-      "pages": 1402,
-      "timestamp": "2025-08-11T11:02:34"
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1947-1948",
+      "title": "Revista Matematicǎ din Timișoara, 1947-1948 (Anul 27, nr. 2-12)",
+      "subtitle": "1947-04-01 / nr. 2",
+      "pages": 196,
+      "timestamp": "2025-08-25T12:22:25"
     },
     {
-      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1966",
-      "title": "Studii și Cercetări de Mecanică Aplicată, 1966 (Tomul 21-23, nr. 1-6)",
-      "subtitle": "1966 / nr. 1",
-      "pages": 1540,
-      "timestamp": "2025-08-11T10:48:10"
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1946-1947",
+      "title": "Revista Matematicǎ din Timișoara, 1946-1947 (Anul 26, nr. 1-10)",
+      "subtitle": "1946-03-01 / nr. 1",
+      "pages": 160,
+      "timestamp": "2025-08-25T12:20:08"
     },
     {
-      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1965",
-      "title": "Studii și Cercetări de Mecanică Aplicată, 1965 (Tomul 18-20, nr. 1-6)",
-      "subtitle": "1965 / nr. 1",
-      "pages": 1530,
-      "timestamp": "2025-08-11T10:17:22"
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1945-1946",
+      "title": "Revista Matematicǎ din Timișoara, 1945-1946 (Anul 25, nr. 1-12)",
+      "subtitle": "1945-03-01 / nr. 1",
+      "pages": 200,
+      "timestamp": "2025-08-25T12:17:49"
     },
     {
-      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1963",
-      "title": "Studii și Cercetări de Mecanică Aplicată, 1963 (Anul 14, nr. 1-6)",
-      "subtitle": "1963 / nr. 1",
-      "pages": 249,
-      "timestamp": "2025-08-10T08:54:41"
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1944-1945",
+      "title": "Revista Matematicǎ din Timișoara, 1944-1945 (Anul 24, nr. 1-12)",
+      "subtitle": "1944-03-01 / nr. 1",
+      "pages": 200,
+      "timestamp": "2025-08-25T12:15:14"
     },
     {
-      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1959",
-      "title": "Studii și Cercetări de Mecanică Aplicată, 1959 (Anul 10, nr. 1-4)",
-      "subtitle": "1959 / nr. 1",
-      "pages": 1392,
-      "timestamp": "2025-08-10T08:56:00"
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1943-1944",
+      "title": "Revista Matematicǎ din Timișoara, 1943-1944 (Anul 23, nr. 1-12)",
+      "subtitle": "1943-03-01 / nr. 1",
+      "pages": 200,
+      "timestamp": "2025-08-25T12:12:41"
     },
     {
-      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1961",
-      "title": "Studii și Cercetări de Mecanică Aplicată, 1961 (Anul 12, nr. 1-6)",
-      "subtitle": "1961 / nr. 1",
-      "pages": 1456,
-      "timestamp": "2025-08-10T08:55:00"
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1942-1943",
+      "title": "Revista Matematicǎ din Timișoara, 1942-1943 (Anul 22, nr. 1-12)",
+      "subtitle": "1942-03-01 / nr. 1",
+      "pages": 204,
+      "timestamp": "2025-08-25T12:10:06"
     },
     {
-      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1962",
-      "title": "Studii și Cercetări de Mecanică Aplicată, 1962 (Anul 13, nr. 1-6)",
-      "subtitle": "1962 / nr. 1",
-      "pages": 1674,
-      "timestamp": "2025-08-10T07:57:27"
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1941-1942",
+      "title": "Revista Matematicǎ din Timișoara, 1941-1942 (Anul 21, nr. 1-12)",
+      "subtitle": "1941-03-01 / nr. 1",
+      "pages": 208,
+      "timestamp": "2025-08-25T12:07:35"
     },
     {
-      "url": "https://adt.arcanum.com/ro/view/StudiiSiCercetariMecanicaSiAplicata_1960",
-      "title": "Studii și Cercetări de Mecanică Aplicată, 1960 (Anul 11, nr. 1-6)",
-      "subtitle": "1960 / nr. 1",
-      "pages": 1666,
-      "timestamp": "2025-08-09T10:56:45"
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1940-1941",
+      "title": "Revista Matematicǎ din Timișoara, 1940-1941 (Anul 20, nr. 1-12)",
+      "subtitle": "1940-03-01 / nr. 1",
+      "pages": 216,
+      "timestamp": "2025-08-25T12:02:43"
+    },
+    {
+      "url": "https://adt.arcanum.com/ro/view/RevistaMatematicaDinTimisoara_1939-1940",
+      "title": "Revista Matematicǎ din Timișoara, 1939-1940 (Anul 19, nr. 1-12)",
+      "subtitle": "1939-03-15 / nr. 1",
+      "pages": 244,
+      "timestamp": "2025-08-25T12:00:05"
     }
   ],
   "daily_limit_hit": false,
