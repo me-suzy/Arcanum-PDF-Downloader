@@ -56,7 +56,6 @@ def setup_logging():
 
 # Colecțiile adiționale (procesate DUPĂ colecția principală din main())
 ADDITIONAL_COLLECTIONS = [
-    "https://adt.arcanum.com/ro/collection/StudiiSiCercetariMecanicaSiAplicata/", # lasi asta obligatoriu
     "https://adt.arcanum.com/de/collection/Mathematische/",
     "https://adt.arcanum.com/ro/collection/BuletInstPolitehIasi_1/",
     "https://adt.arcanum.com/ro/collection/AutomaticaSiElectronica/",
@@ -2299,6 +2298,79 @@ class ChromePDFDownloader:
 
         print(f"=" * 60)
 
+    def check_if_issue_already_processed(self, issue_url, issue_title):
+        """Verifică dacă un issue a fost deja procesat (are fișierul final în folder)"""
+        try:
+            issue_id = issue_url.rstrip('/').split('/')[-1]
+            folder_name = self._safe_folder_name(issue_title or issue_id)
+            dest_dir = os.path.join(self.download_dir, folder_name)
+            output_file = os.path.join(dest_dir, f"{folder_name}.pdf")
+
+            return os.path.exists(output_file) and os.path.getsize(output_file) > 0
+        except Exception:
+            return False
+
+    def process_unprocessed_completed_issues(self):
+        """NOUĂ FUNCȚIE: Procesează issue-urile complete care nu au fost încă copiate în foldere"""
+        print("\n🔍 VERIFICARE FINALĂ: Caut issue-uri complete neprocessate...")
+
+        unprocessed_count = 0
+        processed_count = 0
+
+        for item in self.state.get("downloaded_issues", []):
+            # Verifică doar issue-urile marcate ca complete
+            if not item.get("completed_at"):
+                continue
+
+            url = item.get("url", "")
+            title = item.get("title", "")
+            pages = item.get("pages", 0)
+            total_pages = item.get("total_pages", 0)
+
+            # Verifică că e într-adevăr complet
+            if pages <= 0 or total_pages <= 0 or pages < total_pages * 0.95:
+                continue
+
+            # Verifică dacă a fost deja procesat
+            if self.check_if_issue_already_processed(url, title):
+                continue
+
+            # Verifică dacă există fișiere PDF pentru acest issue
+            existing_segments = self.get_all_pdf_segments_for_issue(url)
+            if not existing_segments:
+                print(f"⚠ Issue complet dar fără fișiere PDF: {url}")
+                continue
+
+            unprocessed_count += 1
+            print(f"🔄 PROCESEZ issue complet neprocessat {unprocessed_count}: {title}")
+            print(f"   📍 URL: {url}")
+            print(f"   📊 Pagini: {pages}/{total_pages}")
+            print(f"   📄 Segmente găsite: {len(existing_segments)}")
+
+            # Procesează fișierele
+            try:
+                print("⏳ Aștept 10 secunde pentru siguranță...")
+                time.sleep(10)
+
+                self.copy_and_combine_issue_pdfs(url, title)
+                processed_count += 1
+                print(f"✅ Issue procesat cu succes: {title}")
+
+                # Pauză între procesări
+                if unprocessed_count < 5:  # Nu pune pauză după ultimul din primele 5
+                    time.sleep(5)
+
+            except Exception as e:
+                print(f"❌ Eroare la procesarea {url}: {e}")
+
+        if unprocessed_count == 0:
+            print("✅ Toate issue-urile complete au fost deja procesate în foldere")
+        else:
+            print(f"📊 PROCESARE FINALĂ COMPLETĂ:")
+            print(f"   🔍 Issue-uri complete neprocessate găsite: {unprocessed_count}")
+            print(f"   ✅ Issue-uri procesate cu succes: {processed_count}")
+            print(f"   ❌ Issue-uri cu erori: {unprocessed_count - processed_count}")
+
     def find_next_issue_in_collection_order(self, collection_links, last_completed_url):
         """
         FIXED: Găsește următorul issue de procesat în ordinea din HTML, nu primul din listă
@@ -2651,8 +2723,9 @@ class ChromePDFDownloader:
 
             # Verifică din nou cota după procesare
             if self.remaining_quota() <= 0 or self.state.get("daily_limit_hit", False):
-                print("⚠ Limita zilnică atinsă după procesarea acestui issue.")
-                break
+                print("⚠ Limita zilnică atinsă după procesarea issue-urilor parțiale.")
+                print("🔄 Continui cu procesarea finală a fișierelor existente...")
+
 
             # Pauză între issue-uri
             if i < len(actual_pending) - 1:  # Nu pune pauză după ultimul
@@ -2816,13 +2889,13 @@ class ChromePDFDownloader:
                 print(f"\n🎯 ETAPA 0: PRIORITATE ABSOLUTĂ - Procesez issue-urile parțiale")
                 if self.process_pending_partials_first():
                     print("✅ Issue-urile parțiale au fost procesate sau limita a fost atinsă.")
-                    # OPREȘTE aici dacă există parțiale - nu trece la colecții noi
-                    if self.get_pending_partial_issues():
-                        print("🔄 Încă mai există issue-uri parțiale - voi continua cu ele următoarea dată")
-                        return True
 
+                # ELIMINĂ return-urile care opresc scriptul prematur
                 if self.remaining_quota() <= 0 or self.state.get("daily_limit_hit", False):
                     print("⚠ Limita zilnică atinsă după procesarea issue-urilor parțiale.")
+                    print("🔄 Continui direct la procesarea finală a fișierelor existente...")
+                    # NU face return aici - sari direct la finalizare
+                    self._finalize_session()
                     return True
 
                 # ETAPA 1: Procesează colecția principală (dacă nu e completă)
@@ -2851,6 +2924,11 @@ class ChromePDFDownloader:
                     self.run_additional_collections()
 
                 print("✅ Toate operațiunile au fost inițiate.")
+
+                # FORȚEAZĂ PROCESAREA FINALĂ ÎNTOTDEAUNA
+                print("\n🔍 PROCESARE FINALĂ FORȚATĂ - procesez issue-urile complete neprocessate...")
+                print("🎯 Această etapă rulează ÎNTOTDEAUNA, indiferent de limita zilnică")
+
                 self._finalize_session()
                 return True
 
@@ -2868,6 +2946,17 @@ class ChromePDFDownloader:
                         pass
 
     def _finalize_session(self):
+        """ÎMBUNĂTĂȚIT: Include procesarea issue-urilor complete neprocessate"""
+
+        # NOUĂ ETAPĂ: Procesează issue-urile complete care nu au fost copiate în foldere
+        print("\n🏁 ETAPA FINALĂ: Verific issue-urile complete neprocessate...")
+
+        try:
+            self.process_unprocessed_completed_issues()
+        except Exception as e:
+            print(f"⚠ Eroare în procesarea finală: {e}")
+
+        # Închiderea browser-ului (logica originală)
         if self.driver:
             if self.attached_existing:
                 print("🔖 Am păstrat sesiunea Chrome existentă deschisă (nu fac quit).")
@@ -2877,37 +2966,48 @@ class ChromePDFDownloader:
                     self.driver.quit()
                 except Exception:
                     pass
+def run_final_processing_only():
+    """Rulează DOAR procesarea finală pentru issue-urile complete neprocessate"""
+    print("🔍 PROCESARE FINALĂ MANUALĂ - Caut issue-uri complete neprocessate...")
+
+    downloader = ChromePDFDownloader("temp", download_dir="D:\\", batch_size=50)
+
+    # Nu are nevoie de WebDriver pentru procesarea fișierelor
+    downloader.driver = None
+
+    # Rulează doar procesarea finală
+    downloader.process_unprocessed_completed_issues()
+
+def mark_studiisicercetari_as_complete():
+    """Marchează StudiiSiCercetariMecanicaSiAplicata ca definitiv completă"""
+    try:
+        downloader = ChromePDFDownloader("temp", download_dir="D:\\", batch_size=50)
+        studiisicercetari_url = "https://adt.arcanum.com/ro/collection/StudiiSiCercetariMecanicaSiAplicata/"
+        downloader.mark_collection_complete(studiisicercetari_url)
+        print(f"✅ StudiiSiCercetariMecanicaSiAplicata marcat ca complet în skip_urls.json")
+    except Exception as e:
+        print(f"⚠ Eroare la marcarea colecției: {e}")
 
 
 def main():
     """
-    MAIN FUNCTION CORECTATĂ - FOCUSEAZĂ PE StudiiSiCercetariMecanicaSiAplicata
-    Nu mai sare la alte colecții până nu termină cu aceasta complet!
+    MAIN FUNCTION cu opțiune pentru procesare finală
     """
 
-    log_file = setup_logging()  # ADĂUGAT - PRIMA LINIE
+    log_file = setup_logging()
 
-
-    print("🚀 PORNIRE SCRIPT - ANALIZA INIȚIALĂ")
-    print("=" * 70)
+    # OPȚIUNE SPECIALĂ: Doar procesare finală
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] == "--final-only":
+        print("🎯 MODUL PROCESARE FINALĂ - Procesez doar fișierele complete neprocessate")
+        run_final_processing_only()
+        return
 
     # PASUL 1: Creează downloader temporar pentru analiza stării
     temp_downloader = ChromePDFDownloader("temp", download_dir="D:\\", batch_size=50)
 
-    # PASUL 2: Analizează starea curentă
-    print("🔍 ANALIZA STĂRII CURENTE:")
-    current_state = temp_downloader.state
-
-    main_completed = current_state.get("main_collection_completed", False)
-    current_index = current_state.get("current_additional_collection_index", 0)
-    total_issues = len(current_state.get("downloaded_issues", []))
-
-    print(f"   📊 Total issues în state: {total_issues}")
-    print(f"   🏁 Main collection completed: {main_completed}")
-    print(f"   🔢 Current additional index: {current_index}")
-
-    # PASUL 3: Verifică issue-urile parțiale (PRIORITATE ABSOLUTĂ)
-    print(f"\n🎯 VERIFICARE ISSUE-URI PARȚIALE:")
+    # PASUL 2: Verifică issue-urile parțiale (PRIORITATE ABSOLUTĂ)
+    print(f"🎯 VERIFICARE ISSUE-URI PARȚIALE:")
     pending_partials = temp_downloader.get_pending_partial_issues()
 
     if pending_partials:
@@ -2927,70 +3027,27 @@ def main():
     else:
         print(f"✅ Nu există issue-uri parțiale de procesat")
 
-    # PASUL 4: Analizează progresul StudiiSiCercetariMecanicaSiAplicata
-    print(f"\n📚 ANALIZA COLECȚIEI StudiiSiCercetariMecanicaSiAplicata:")
+    # PASUL 3: Determină următoarea colecție de procesat
+    current_index = temp_downloader.state.get("current_additional_collection_index", 1)
 
-    # Lista completă a anilor disponibili din HTML (1954-1992, minus 1964)
-    expected_years = []
-    for year in range(1954, 1993):  # 1954-1992
-        if year != 1964:  # 1964 nu există în colecție
-            expected_years.append(year)
+    print(f"\n📚 STRATEGIA DE PROCESARE:")
+    print(f"   📍 Current additional collection index: {current_index}")
 
-    # Verifică care ani au fost descărcați
-    downloaded_years = []
-    partial_years = []
-
-    for item in current_state.get("downloaded_issues", []):
-        url = item.get("url", "")
-        if "StudiiSiCercetariMecanicaSiAplicata" in url:
-            # Extrage anul din URL
-            year_match = re.search(r'StudiiSiCercetariMecanicaSiAplicata_(\d{4})', url)
-            if year_match:
-                year = int(year_match.group(1))
-                if item.get("completed_at"):
-                    downloaded_years.append(year)
-                else:
-                    partial_years.append(year)
-
-    downloaded_years.sort()
-    partial_years.sort()
-    missing_years = [year for year in expected_years if year not in downloaded_years and year not in partial_years]
-
-    print(f"   📅 Ani disponibili: {len(expected_years)} (1954-1992, minus 1964)")
-    print(f"   ✅ Ani descărcați: {len(downloaded_years)} - {downloaded_years}")
-    print(f"   🔄 Ani parțiali: {len(partial_years)} - {partial_years}")
-    print(f"   ❌ Ani lipsă: {len(missing_years)} - {missing_years[:10]}{'...' if len(missing_years) > 10 else ''}")
-
-    # PASUL 5: Determină strategia
-    total_remaining = len(partial_years) + len(missing_years)
-
-    if total_remaining > 0:
-        print(f"\n🎯 STRATEGIA DE PROCESARE:")
-        print(f"   🔥 RĂMÂN {total_remaining} ani de procesat din StudiiSiCercetariMecanicaSiAplicata")
-        print(f"   🚫 NU se trece la alte colecții până nu se termină aceasta!")
-        print(f"   📈 Progres: {len(downloaded_years)}/{len(expected_years)} ani completați ({len(downloaded_years)/len(expected_years)*100:.1f}%)")
-    else:
-        print(f"\n✅ StudiiSiCercetariMecanicaSiAplicata este COMPLET!")
-        print(f"   🎯 Va trece la următoarea colecție din ADDITIONAL_COLLECTIONS")
-
-    # PASUL 6: Resetează starea pentru a continua corect cu StudiiSiCercetariMecanicaSiAplicata
-    if total_remaining > 0:
-        print(f"\n🔧 RESETEZ STAREA pentru a continua cu StudiiSiCercetariMecanicaSiAplicata:")
-
-        # Resetează flag-urile greșite
-        if main_completed:
-            print(f"   🔄 Resetez main_collection_completed: True → False")
-            temp_downloader.state["main_collection_completed"] = False
-
-        if current_index > 1:  # StudiiSiCercetariMecanicaSiAplicata e pe index 1
-            print(f"   🔄 Resetez current_additional_collection_index: {current_index} → 1")
-            temp_downloader.state["current_additional_collection_index"] = 1
-
+    if current_index >= len(ADDITIONAL_COLLECTIONS):
+        print(f"   ✅ TOATE colecțiile au fost procesate!")
+        print(f"   🔄 Resetez la prima colecție pentru o nouă rundă")
+        current_index = 0
+        temp_downloader.state["current_additional_collection_index"] = 0
         temp_downloader._save_state()
-        print(f"   ✅ Starea resetată pentru a continua cu StudiiSiCercetariMecanicaSiAplicata")
 
-    # PASUL 7: Setează URL-ul colecției principale
-    main_collection_url = "https://adt.arcanum.com/ro/collection/StudiiSiCercetariMecanicaSiAplicata/"
+    next_collection = ADDITIONAL_COLLECTIONS[current_index]
+    remaining_collections = len(ADDITIONAL_COLLECTIONS) - current_index
+
+    print(f"   🎯 Următoarea colecție: {next_collection}")
+    print(f"   📊 Colecții rămase: {remaining_collections}/{len(ADDITIONAL_COLLECTIONS)}")
+
+    # PASUL 4: Setează colecția ca fiind principală (pentru compatibilitate cu codul existent)
+    main_collection_url = next_collection
 
     print(f"\n🚀 ÎNCEPE PROCESAREA:")
     print(f"📍 URL principal: {main_collection_url}")
@@ -2999,18 +3056,21 @@ def main():
 
     if pending_partials:
         print(f"⚡ Va începe cu {len(pending_partials)} issue-uri parțiale")
-    if missing_years:
-        print(f"📅 Va continua cu anii lipsă: {missing_years[:5]}{'...' if len(missing_years) > 5 else ''}")
 
     print("=" * 70)
 
-    # PASUL 8: Creează downloader-ul principal și pornește procesarea
+    # PASUL 5: Creează downloader-ul principal și pornește procesarea
     try:
         downloader = ChromePDFDownloader(
             main_collection_url=main_collection_url,
             download_dir="D:\\",
             batch_size=50
         )
+
+        # SETEAZĂ indexul corect pentru a continua cu colecțiile adiționale
+        downloader.state["current_additional_collection_index"] = current_index
+        downloader.state["main_collection_completed"] = True  # Marchează "main" ca terminată pentru a trece la adiționale
+        downloader._save_state()
 
         print("🎯 ÎNCEPE EXECUȚIA PRINCIPALĂ...")
         success = downloader.run()
